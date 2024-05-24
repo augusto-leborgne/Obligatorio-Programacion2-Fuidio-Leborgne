@@ -10,7 +10,7 @@ import uy.edu.um.adt.heap.HeapImplTest;
 import uy.edu.um.adt.linkedlist.LinkedListImplTest;
 import uy.edu.um.adt.queue.QueueImplTest;
 import uy.edu.um.adt.stack.StackImplTest;
-
+//Test
 @RunWith(Suite.class)
 @SuiteClasses({QueueImplTest.class, StackImplTest.class, LinkedListImplTest.class, SearchBinaryTreeImplTest.class, HashImplTest.class, HeapImplTest.class})
 public class AllTests {
