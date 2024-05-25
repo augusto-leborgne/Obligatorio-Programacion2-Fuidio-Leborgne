@@ -21,7 +21,7 @@ public class MyHashImpl<K, T> implements MyHash<K, T> {
 
 		for (int i = 0; i < oldHashMap.length; i++) {
 			if (oldHashMap[i] != null) {
-				if (oldHashMap[i].isBorrado())
+				if (!oldHashMap[i].isBorrado())
 					put(oldHashMap[i].getKey(), oldHashMap[i].getData());
 			}
 		}
