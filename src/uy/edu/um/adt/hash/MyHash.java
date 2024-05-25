@@ -6,6 +6,7 @@ package uy.edu.um.adt.hash;
 import uy.edu.um.adt.linkedlist.MyList;
 
 public interface MyHash<K,T> {
+	void resize();
 
 	/**
 	 * Agrega la clave dentro del hash
