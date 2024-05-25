@@ -9,7 +9,7 @@ public class HashImplTest {
 
     @Test
     public void testFlujoNormal() {
-        MyHash<Integer, String> hash = new MyHashImpl<>(5);
+        MyHash<Integer, String> hash = new MyHashImpl<>();
 
         hash.put(32, "Cancion1");
         hash.put(44, "Cancion2");

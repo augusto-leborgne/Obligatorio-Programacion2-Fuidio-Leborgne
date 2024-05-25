@@ -7,6 +7,8 @@ import uy.edu.um.adt.linkedlist.MyList;
 
 public interface MyHash<K,T> {
 
+	void resize();
+
 	/**
 	 * Agrega la clave dentro del hash
 	 * @param key
@@ -29,9 +31,11 @@ public interface MyHash<K,T> {
 
 	/**
 	 * Remueve un elemento con la key indicada
+	 *
 	 * @param key
+	 * @return
 	 */
-	void remove(K key);
+	T remove(K key);
 	
 	/**
 	 * Obtiene la lista de keys disponibles del hash
