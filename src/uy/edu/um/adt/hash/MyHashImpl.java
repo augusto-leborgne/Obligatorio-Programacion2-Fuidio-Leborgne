@@ -95,6 +95,7 @@ public class MyHashImpl<K, T> implements MyHash<K, T> {
 
 	@Override
 	public MyList<K> keys() {
+
 		return null;
 	}
 
@@ -105,6 +106,8 @@ public class MyHashImpl<K, T> implements MyHash<K, T> {
 
 	@Override
 	public int size() {
+		int k = 0;
+
 		return 0;
 	}
 }
