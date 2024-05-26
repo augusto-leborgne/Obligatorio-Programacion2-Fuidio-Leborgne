@@ -1,5 +1,6 @@
 package uy.edu.um.adt.hash;
 
+import uy.edu.um.adt.linkedlist.MyLinkedListImpl;
 import uy.edu.um.adt.linkedlist.MyList;
 
 
@@ -30,16 +31,16 @@ public class MyHashImpl<K, T> implements MyHash<K, T> {
 
 	@Override
 	public void put(K key, T value) {
-		HashNode<K,T> nodo = new HashNode<K,T>(key,value);
+		HashNode<K, T> nodo = new HashNode<K, T>(key, value);
 		int pos = key.hashCode() % size;
 		if (hashMap[pos] == null) {
 			hashMap[pos] = nodo;
 			count++;
 
 		} else {
-			for (int i=pos+1; i!=pos; i++){
-				if (i != size){
-					if (hashMap[i] == null){
+			for (int i = pos + 1; i != pos; i++) {
+				if (i != size) {
+					if (hashMap[i] == null) {
 						hashMap[i] = nodo;
 						count++;
 					}
@@ -49,7 +50,7 @@ public class MyHashImpl<K, T> implements MyHash<K, T> {
 			}
 		}
 
-		if (count > (size * 0.75)){
+		if (count > (size * 0.75)) {
 			resize();
 		}
 	}
@@ -57,9 +58,9 @@ public class MyHashImpl<K, T> implements MyHash<K, T> {
 	@Override
 	public T get(K key) {
 		int pos = key.hashCode() % size;
-		for (int i=pos; i!=pos-1; i++){
-			if (i != size){
-				if (hashMap[i] != null && hashMap[i].getKey().equals(key)){
+		for (int i = pos; i != pos - 1; i++) {
+			if (i != size) {
+				if (hashMap[i] != null && hashMap[i].getKey().equals(key)) {
 					return hashMap[i].getData();
 				}
 			} else {
@@ -71,9 +72,9 @@ public class MyHashImpl<K, T> implements MyHash<K, T> {
 
 	@Override
 	public boolean contains(K key) {
-		if (get(key) == null){
+		if (get(key) == null) {
 			return false;
-		} else{
+		} else {
 			return true;
 		}
 	}
@@ -81,9 +82,9 @@ public class MyHashImpl<K, T> implements MyHash<K, T> {
 	@Override
 	public T remove(K key) {
 		int pos = key.hashCode() % size;
-		for (int i=pos; i!=pos-1; i++){
-			if (i != size){
-				if (hashMap[i] != null && hashMap[i].getKey().equals(key)){
+		for (int i = pos; i != pos - 1; i++) {
+			if (i != size) {
+				if (hashMap[i] != null && hashMap[i].getKey().equals(key)) {
 					hashMap[i].setBorrado(true);
 				}
 			} else {
@@ -95,10 +96,13 @@ public class MyHashImpl<K, T> implements MyHash<K, T> {
 
 	@Override
 	public MyList<K> keys() {
+		MyLinkedListImpl<K> Keys = new MyLinkedListImpl<>();
+		for (int i = 0; i < this.size; ){
 
-		return null;
+		}
+			return null;
+
 	}
-
 	@Override
 	public MyList<T> values() {
 		return null;
@@ -106,6 +110,7 @@ public class MyHashImpl<K, T> implements MyHash<K, T> {
 
 	@Override
 	public int size() {
+
 		int k = 0;
 
 		return 0;
