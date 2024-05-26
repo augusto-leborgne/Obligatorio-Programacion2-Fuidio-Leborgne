@@ -10,38 +10,42 @@ import uy.edu.um.adt.linkedlist.MyList;
  */
 public class MyHashImpl<K, T> implements MyHash<K, T> {
 
-	int size = 1;
-	int count = 0;
-	HashNode<K, T>[] hashMap = new HashNode[size];
+	private int size;
+	private int count;
+	private HashNode<K, T>[] hashMap;
+
+	public MyHashImpl(){
+		this.size = 1;
+		this.count = 0;
+		this.hashMap = new HashNode[this.size];
+	}
 
 	@Override
 	public void resize() {
-		size = size * 2;
-		HashNode<K, T>[] oldHashMap = hashMap;
-		HashNode<K, T>[] hashMap = new HashNode[size];
+		this.size = this.size * 2;
+		HashNode<K, T>[] oldHashMap = this.hashMap;
+		this.hashMap = new HashNode[this.size];
 
 		for (int i = 0; i < oldHashMap.length; i++) {
-			if (oldHashMap[i] != null) {
-				if (!oldHashMap[i].isBorrado())
-					put(oldHashMap[i].getKey(), oldHashMap[i].getData());
+			if (oldHashMap[i] != null && !oldHashMap[i].isBorrado()) {
+				put(oldHashMap[i].getKey(), oldHashMap[i].getData());
 			}
 		}
 	}
-
 
 	@Override
 	public void put(K key, T value) {
 		HashNode<K, T> nodo = new HashNode<K, T>(key, value);
 		int pos = key.hashCode() % size;
-		if (hashMap[pos] == null) {
-			hashMap[pos] = nodo;
+		if (this.hashMap[pos] == null) {
+			this.hashMap[pos] = nodo;
 			count++;
 
 		} else {
 			for (int i = pos + 1; i != pos; i++) {
-				if (i != size) {
-					if (hashMap[i] == null) {
-						hashMap[i] = nodo;
+				if (i != this.size) {
+					if (this.hashMap[i] == null) {
+						this.hashMap[i] = nodo;
 						count++;
 					}
 				} else {
@@ -50,18 +54,18 @@ public class MyHashImpl<K, T> implements MyHash<K, T> {
 			}
 		}
 
-		if (count > (size * 0.75)) {
+		if (count > (this.size * 0.75)) {
 			resize();
 		}
 	}
 
 	@Override
 	public T get(K key) {
-		int pos = key.hashCode() % size;
+		int pos = key.hashCode() % this.size;
 		for (int i = pos; i != pos - 1; i++) {
-			if (i != size) {
-				if (hashMap[i] != null && hashMap[i].getKey().equals(key)) {
-					return hashMap[i].getData();
+			if (i != this.size) {
+				if (this.hashMap[i] != null && this.hashMap[i].getKey().equals(key)) {
+					return this.hashMap[i].getData();
 				}
 			} else {
 				i = 0;
@@ -80,38 +84,40 @@ public class MyHashImpl<K, T> implements MyHash<K, T> {
 	}
 
 	@Override
-	public T remove(K key) {
+	public void remove(K key) {
 		int pos = key.hashCode() % size;
 		for (int i = pos; i != pos - 1; i++) {
-			if (i != size) {
-				if (hashMap[i] != null && hashMap[i].getKey().equals(key)) {
-					hashMap[i].setBorrado(true);
+			if (i != this.size) {
+				if (this.hashMap[i] != null && this.hashMap[i].getKey().equals(key)) {
+					this.hashMap[i].setBorrado(true);
 				}
 			} else {
 				i = 0;
 			}
 		}
-		return null;
 	}
 
 	@Override
 	public MyList<K> keys() {
-		MyLinkedListImpl<K> Keys = new MyLinkedListImpl<>();
-
-		return null;
-
+		MyLinkedListImpl<K> keys = new MyLinkedListImpl<>();
+		for (int i=0; i< this.hashMap.length; i++){
+			keys.add(this.hashMap[i].getKey());
+		}
+		return keys;
 	}
+
 	@Override
 	public MyList<T> values() {
-		return null;
+		MyLinkedListImpl<T> values = new MyLinkedListImpl<>();
+		for (int i=0; i< this.hashMap.length; i++){
+			values.add(this.hashMap[i].getData());
+		}
+		return values;
 	}
 
 	@Override
 	public int size() {
-
-		int k = 0;
-
-		return 0;
+		return this.size;
 	}
 }
 
