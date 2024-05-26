@@ -97,7 +97,7 @@ public class MyHashImpl<K, T> implements MyHash<K, T> {
 	@Override
 	public MyList<K> keys() {
 		MyLinkedListImpl<K> Keys = new MyLinkedListImpl<>();
-		for (int i = 0; i < this.size; ){
+		for (int i = 0; i < this.size
 
 		}
 			return null;
