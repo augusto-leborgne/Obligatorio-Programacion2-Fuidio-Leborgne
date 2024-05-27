@@ -8,14 +8,14 @@ import uy.edu.um.adt.linkedlist.MyList;
 public interface MyHash<K,T> {
 
 
-	void resize();
+	void resize() throws KeyNullException;
 
 	/**
 	 * Agrega la clave dentro del hash
 	 * @param key
 	 * @param value
 	 */
-	void put(K key, T value);
+	void put(K key, T value) throws KeyNullException;
 
 	/**
 	 * @param key

@@ -8,7 +8,7 @@ import static org.junit.Assert.*;
 public class HashImplTest {
 
     @Test
-    public void testFlujoNormal() {
+    public void testFlujoNormal() throws KeyNullException {
         MyHash<Integer, String> hash = new MyHashImpl<>();
 
         hash.put(32, "Cancion1");

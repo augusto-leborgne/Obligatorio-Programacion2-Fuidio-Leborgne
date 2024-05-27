@@ -20,7 +20,7 @@ public class MyHashImpl<K, T> implements MyHash<K, T> {
 	}
 
 	@Override
-	public void resize() {
+	public void resize() throws KeyNullException {
 		this.size = this.size * 2;
 		HashNode<K, T>[] oldHashMap = this.hashMap;
 		this.hashMap = new HashNode[this.size];
@@ -32,12 +32,12 @@ public class MyHashImpl<K, T> implements MyHash<K, T> {
 				put(node.getKey(), node.getData());
 			}
 		}
-
 	}
 
 	@Override
-	public void put(K key, T value) {
-		if (key == null) return;
+	public void put(K key, T value) throws KeyNullException {
+		if (key == null)
+			throw new KeyNullException();
 
 		if (count > (this.size * 0.75)) {
 			resize();
