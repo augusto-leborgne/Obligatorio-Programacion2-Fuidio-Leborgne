@@ -8,7 +8,6 @@ import uy.edu.um.adt.linkedlist.MyList;
  * si el factor de carga supera 0.75
  */
 public class MyHashImpl<K, T> implements MyHash<K, T> {
-
 	private int size;
 	private int count;
 	private HashNode<K, T>[] hashMap;
@@ -36,8 +35,9 @@ public class MyHashImpl<K, T> implements MyHash<K, T> {
 
 	@Override
 	public void put(K key, T value) throws KeyNullException {
-		if (key == null)
+		if (key == null) {
 			throw new KeyNullException();
+		}
 
 		if (count > (this.size * 0.75)) {
 			resize();
@@ -59,8 +59,10 @@ public class MyHashImpl<K, T> implements MyHash<K, T> {
 	}
 
 	@Override
-	public T get(K key) {
-		if (key == null) return null;
+	public T get(K key) throws KeyNullException {
+		if (key == null){
+			throw new KeyNullException();
+		}
 
 		int pos = Math.abs(key.hashCode()) % size;
 		int originalPos = pos;
@@ -76,13 +78,15 @@ public class MyHashImpl<K, T> implements MyHash<K, T> {
 	}
 
 	@Override
-	public boolean contains(K key) {
+	public boolean contains(K key) throws KeyNullException {
 		return get(key) != null;
 	}
 
 	@Override
-	public void remove(K key) {
-		if (key == null) return;
+	public void remove(K key) throws KeyNullException {
+		if (key == null) {
+			throw new KeyNullException();
+		}
 
 		int pos = Math.abs(key.hashCode()) % size;
 		int originalPos = pos;

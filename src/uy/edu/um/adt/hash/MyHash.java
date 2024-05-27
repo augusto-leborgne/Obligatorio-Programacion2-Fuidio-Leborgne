@@ -21,20 +21,20 @@ public interface MyHash<K,T> {
 	 * @param key
 	 * @return
 	 */
-	T get(K key);
+	T get(K key) throws KeyNullException;
 
 	/**
 	 * Retorna true la clave existe false en caso contrario
 	 * @param key
 	 * @return
 	 */
-	boolean contains(K key);
+	boolean contains(K key) throws KeyNullException;
 
 	/**
 	 * Remueve un elemento con la key indicada
 	 * @param key
 	 */
-	void remove(K key);
+	void remove(K key) throws KeyNullException;
 	
 	/**
 	 * Obtiene la lista de keys disponibles del hash
