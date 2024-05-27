@@ -5,7 +5,8 @@ import uy.edu.um.adt.linkedlist.MyLinkedListImpl;
 
 import static org.junit.Assert.*;
 
-public class QueueImplTest {
+public class
+QueueImplTest {
 
 	@Test
 	public void testFlujoCompleto() {
