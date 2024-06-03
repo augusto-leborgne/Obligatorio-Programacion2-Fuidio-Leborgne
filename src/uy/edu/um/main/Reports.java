@@ -41,8 +41,10 @@ public class Reports {
             return songs;
         } catch (IOException e) {
             System.out.println("File I/O error!");
+            return null;
         } catch (KeyNullException e) {
             System.out.println("Key Null ERROR!");
+            return null;
         }
     }
 }
