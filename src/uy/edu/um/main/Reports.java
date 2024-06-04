@@ -17,7 +17,6 @@ public class Reports {
         MyHashImpl<Integer, String> hash = new MyHashImpl<>();
 
         try (BufferedReader in = new BufferedReader(new FileReader(new File("universal_top_spotify_songs.csv")))) {
-            System.out.println("File open successful!");
 
             int line = 0;
             for (String x = in.readLine(); x != null; x = in.readLine()) {
