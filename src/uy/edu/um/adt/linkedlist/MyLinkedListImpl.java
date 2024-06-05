@@ -188,6 +188,12 @@ public class MyLinkedListImpl<T> implements MyList<T>, MyQueue<T>, MyStack<T> {
         return size;
     }
 
+    @Override
+    public Node<T> getFirst(){return this.first;}
+
+    @Override
+    public Node<T> getLast(){return this.last;}
+
     // Operaciones particulares a Queue
 
     @Override

@@ -101,8 +101,8 @@ public class MySearchBinaryTreeImpl<K extends Comparable<K>, V> implements
 	}
 
 	@Override
-	public MyList<K> inOrder() {
-		MyList<K> inOrderTraverse = new MyLinkedListImpl<>();
+	public MyList<TreeNode<K, V>> inOrder() {
+		MyList<TreeNode<K, V>> inOrderTraverse = new MyLinkedListImpl<>();
 
 		if (root != null) {
 

@@ -14,15 +14,15 @@ public class StackImplTest {
 	public void testFlujoCompleto() {
 		MyStack<Integer> colStack = new MyLinkedListImpl<>();
 		
-		colStack.push(new Integer(2));
-		colStack.push(new Integer(4));
-		colStack.push(new Integer(7));
+		colStack.push(2);
+		colStack.push(4);
+		colStack.push(7);
 
-		assertEquals(new Integer(7), colStack.peek());
+		assertEquals(Integer.valueOf(7), colStack.peek());
 
 		try {
 
-			assertEquals(new Integer(7), colStack.pop());
+			assertEquals(Integer.valueOf(7), colStack.pop());
 
 		} catch (EmptyStackException e) {
 
@@ -30,11 +30,11 @@ public class StackImplTest {
 
 		}
 
-		assertEquals(new Integer(4), colStack.peek());
+		assertEquals(Integer.valueOf(4), colStack.peek());
 
 		try {
 
-			assertEquals(new Integer(4), colStack.pop());
+			assertEquals(Integer.valueOf(4), colStack.pop());
 
 		} catch (EmptyStackException e) {
 
@@ -44,7 +44,7 @@ public class StackImplTest {
 
 		try {
 
-			assertEquals(new Integer(2), colStack.pop());
+			assertEquals(Integer.valueOf(2), colStack.pop());
 
 		} catch (EmptyStackException e) {
 

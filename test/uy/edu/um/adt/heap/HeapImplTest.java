@@ -19,20 +19,20 @@ HeapImplTest {
 
         assertEquals(5, heapMin.size());
 
-        assertEquals(new Integer(2), heapMin.get());
-        assertEquals(new Integer(2), heapMin.delete());
+        assertEquals(Integer.valueOf(2), heapMin.get());
+        assertEquals(Integer.valueOf(2), heapMin.delete());
 
-        assertEquals(new Integer(15), heapMin.get());
-        assertEquals(new Integer(15), heapMin.delete());
+        assertEquals(Integer.valueOf(15), heapMin.get());
+        assertEquals(Integer.valueOf(15), heapMin.delete());
 
-        assertEquals(new Integer(17), heapMin.get());
-        assertEquals(new Integer(17), heapMin.delete());
+        assertEquals(Integer.valueOf(17), heapMin.get());
+        assertEquals(Integer.valueOf(17), heapMin.delete());
 
-        assertEquals(new Integer(150), heapMin.get());
-        assertEquals(new Integer(150), heapMin.delete());
+        assertEquals(Integer.valueOf(150), heapMin.get());
+        assertEquals(Integer.valueOf(150), heapMin.delete());
 
-        assertEquals(new Integer(200), heapMin.get());
-        assertEquals(new Integer(200), heapMin.delete());
+        assertEquals(Integer.valueOf(200), heapMin.get());
+        assertEquals(Integer.valueOf(200), heapMin.delete());
 
         assertEquals(0, heapMin.size());
     }
@@ -49,20 +49,20 @@ HeapImplTest {
 
         assertEquals(5, heapMin.size());
 
-        assertEquals(new Integer(200), heapMin.get());
-        assertEquals(new Integer(200), heapMin.delete());
+        assertEquals(Integer.valueOf(200), heapMin.get());
+        assertEquals(Integer.valueOf(200), heapMin.delete());
 
-        assertEquals(new Integer(150), heapMin.get());
-        assertEquals(new Integer(150), heapMin.delete());
+        assertEquals(Integer.valueOf(150), heapMin.get());
+        assertEquals(Integer.valueOf(150), heapMin.delete());
 
-        assertEquals(new Integer(17), heapMin.get());
-        assertEquals(new Integer(17), heapMin.delete());
+        assertEquals(Integer.valueOf(17), heapMin.get());
+        assertEquals(Integer.valueOf(17), heapMin.delete());
 
-        assertEquals(new Integer(15), heapMin.get());
-        assertEquals(new Integer(15), heapMin.delete());
+        assertEquals(Integer.valueOf(15), heapMin.get());
+        assertEquals(Integer.valueOf(15), heapMin.delete());
 
-        assertEquals(new Integer(2), heapMin.get());
-        assertEquals(new Integer(2), heapMin.delete());
+        assertEquals(Integer.valueOf(2), heapMin.get());
+        assertEquals(Integer.valueOf(2), heapMin.delete());
 
         assertEquals(0, heapMin.size());
     }

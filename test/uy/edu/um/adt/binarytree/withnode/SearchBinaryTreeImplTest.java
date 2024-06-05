@@ -5,6 +5,7 @@ import static org.junit.Assert.*;
 import org.junit.Test;
 import uy.edu.um.adt.binarytree.MySearchBinaryTree;
 import uy.edu.um.adt.binarytree.MySearchBinaryTreeImpl;
+import uy.edu.um.adt.binarytree.TreeNode;
 import uy.edu.um.adt.linkedlist.MyList;
 
 public class
@@ -21,14 +22,14 @@ SearchBinaryTreeImplTest {
 		oTree.add(4, 4);
 		oTree.add(18, 18);
 		
-		MyList<Integer> colValues = oTree.inOrder();
+		MyList<TreeNode<Integer, Integer>> colValues = oTree.inOrder();
 		
-		assertEquals(Integer.valueOf(-1), colValues.get(0));
-		assertEquals(Integer.valueOf(3), colValues.get(1));
-		assertEquals(Integer.valueOf(4), colValues.get(2));
-		assertEquals(Integer.valueOf(11), colValues.get(3));
-		assertEquals(Integer.valueOf(18), colValues.get(4));
-		assertEquals(Integer.valueOf(21), colValues.get(5));
+		assertEquals(Integer.valueOf(-1), colValues.get(0).getKey());
+		assertEquals(Integer.valueOf(3), colValues.get(1).getKey());
+		assertEquals(Integer.valueOf(4), colValues.get(2).getKey());
+		assertEquals(Integer.valueOf(11), colValues.get(3).getKey());
+		assertEquals(Integer.valueOf(18), colValues.get(4).getKey());
+		assertEquals(Integer.valueOf(21), colValues.get(5).getKey());
 	}
 
 	@Test
@@ -46,11 +47,11 @@ SearchBinaryTreeImplTest {
 		oTree.remove(-1);
 		oTree.remove(18);
 		
-		MyList<Integer> colValues = oTree.inOrder();
+		MyList<TreeNode<Integer, Integer>> colValues = oTree.inOrder();
 
-		assertEquals(Integer.valueOf(4), colValues.get(0));
-		assertEquals(Integer.valueOf(11), colValues.get(1));
-		assertEquals(Integer.valueOf(21), colValues.get(2));
+		assertEquals(Integer.valueOf(4), colValues.get(0).getKey());
+		assertEquals(Integer.valueOf(11), colValues.get(1).getKey());
+		assertEquals(Integer.valueOf(21), colValues.get(2).getKey());
 	}
 	
 	@Test
@@ -67,7 +68,7 @@ SearchBinaryTreeImplTest {
 		oTree.remove(18);
 		oTree.remove(4);		
 		
-		MyList<Integer> colValues = oTree.inOrder();
+		MyList<TreeNode<Integer, Integer>> colValues = oTree.inOrder();
 
 		assertEquals(0, colValues.size());
 	}
@@ -87,13 +88,13 @@ SearchBinaryTreeImplTest {
 		oTree.remove(-1);
 		oTree.remove(18);
 		
-		Integer oTemp = oTree.find(3).getValue();
+		TreeNode<Integer, Integer> oTemp = oTree.find(3);
 		
 		assertNull(oTemp);
 		
-		oTemp = oTree.find(21).getValue();
+		oTemp = oTree.find(21);
 		
-		assertEquals(Integer.valueOf(21), oTemp);
+		assertEquals(Integer.valueOf(21), oTemp.getValue());
 
 	}
 	

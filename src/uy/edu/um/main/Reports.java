@@ -1,10 +1,12 @@
 package uy.edu.um.main;
 
 import uy.edu.um.adt.binarytree.MySearchBinaryTreeImpl;
+import uy.edu.um.adt.binarytree.TreeNode;
 import uy.edu.um.adt.hash.KeyNullException;
 import uy.edu.um.adt.hash.MyHashImpl;
 import uy.edu.um.adt.heap.MyHeapImpl;
 import uy.edu.um.adt.linkedlist.MyList;
+import uy.edu.um.adt.linkedlist.Node;
 
 import java.io.BufferedReader;
 import java.io.File;
@@ -84,12 +86,10 @@ public class Reports {
                 }
             }
 
-            MyList<String> listKeys = bst.inOrder();
-            for(int i=0; i<listKeys.size(); i++){
-                String k = listKeys.get(i);
-                int c = bst.find(k).getCount();
-                String v = bst.find(k).getValue();
-                System.out.println(c);
+            MyList<TreeNode<String, String>> listKeys = bst.inOrder();
+            for(Node<TreeNode<String, String>> temp = listKeys.getFirst(); temp != listKeys.getLast(); temp = temp.getNext()){
+                int c = temp.getValue().getCount();
+                String v = temp.getValue().getValue();
                 hash.put(c, v);
                 heap.insert(c);
             }

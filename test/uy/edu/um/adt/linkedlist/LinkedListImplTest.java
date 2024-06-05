@@ -19,9 +19,9 @@ LinkedListImplTest {
 
         assertEquals(4, list.size());
 
-        assertEquals(new Integer(4), list.get(0));
+        assertEquals(Integer.valueOf(4), list.get(0));
 
-        assertEquals(new Integer(2), list.get(3));
+        assertEquals(Integer.valueOf(2), list.get(3));
 
         assertTrue(list.contains(5));
 
@@ -39,7 +39,7 @@ LinkedListImplTest {
 
         assertNull(list.get(2));
 
-        assertEquals(new Integer(5), list.get(0));
+        assertEquals(Integer.valueOf(5), list.get(0));
 
 
     }

@@ -12,4 +12,7 @@ public interface MyList<T> {
 
     int size();
 
+    Node<T> getFirst();
+    Node<T> getLast();
+
 }

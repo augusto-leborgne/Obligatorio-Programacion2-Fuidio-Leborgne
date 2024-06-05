@@ -12,16 +12,16 @@ QueueImplTest {
 	public void testFlujoCompleto() {
 		MyQueue<Integer> queue = new MyLinkedListImpl<>();
 		
-		queue.enqueue(new Integer(21));
-		queue.enqueue(new Integer(34));
-		queue.enqueue(new Integer(3));
+		queue.enqueue(21);
+		queue.enqueue(34);
+		queue.enqueue(3);
 
         assertTrue(queue.contains(21));
         assertEquals(3, queue.size());
 
 		try {
 
-			assertEquals(new Integer(21), queue.dequeue());
+			assertEquals(Integer.valueOf(21), queue.dequeue());
 
 		} catch (EmptyQueueException e) {
 
@@ -39,7 +39,7 @@ QueueImplTest {
 
         try {
 
-            assertEquals(new Integer(34), queue.dequeue());
+            assertEquals(Integer.valueOf(34), queue.dequeue());
 
         } catch (EmptyQueueException e) {
 
@@ -49,7 +49,7 @@ QueueImplTest {
 
         try {
 
-            assertEquals(new Integer(3), queue.dequeue());
+            assertEquals(Integer.valueOf(3), queue.dequeue());
 
         } catch (EmptyQueueException e) {
 

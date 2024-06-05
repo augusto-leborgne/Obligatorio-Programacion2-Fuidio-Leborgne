@@ -103,14 +103,14 @@ TreeNode<K extends Comparable<K>, V> {
 		return elementToReturn;
 	}
 
-	public void inOrderTraverse(MyList<K> traverse) {
+	public void inOrderTraverse(MyList<TreeNode<K, V>> traverse) {
 		if (left != null) {
 
 			left.inOrderTraverse(traverse);
 
 		}
 
-		traverse.add(this.getKey());
+		traverse.add(this);
 
 		if (right != null) {
 
@@ -127,7 +127,7 @@ TreeNode<K extends Comparable<K>, V> {
 		return key;
 	}
 
-	public int getCount(){return count;}
+	public int getCount(){ return count; }
 
 	public void setValue(V value) {
 		this.value = value;

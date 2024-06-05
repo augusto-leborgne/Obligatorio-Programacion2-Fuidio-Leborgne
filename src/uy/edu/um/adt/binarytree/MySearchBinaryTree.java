@@ -16,6 +16,6 @@ public interface MySearchBinaryTree<K extends Comparable<K>, V> {
 	
 	TreeNode<K, V> find(K key);
 
-	MyList<K> inOrder();
+	MyList<TreeNode<K, V>> inOrder();
 
 }
