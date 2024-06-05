@@ -3,6 +3,7 @@
  */
 package uy.edu.um.adt.binarytree;
 
+import com.sun.source.tree.Tree;
 import uy.edu.um.adt.linkedlist.MyList;
 
 public interface MySearchBinaryTree<K extends Comparable<K>, V> {
@@ -13,7 +14,7 @@ public interface MySearchBinaryTree<K extends Comparable<K>, V> {
 	
 	boolean contains(K key);
 	
-	V find(K key);
+	TreeNode<K, V> find(K key);
 
 	MyList<K> inOrder();
 

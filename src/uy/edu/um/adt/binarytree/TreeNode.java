@@ -12,6 +12,8 @@ TreeNode<K extends Comparable<K>, V> {
 	
 	private V value;
 
+	private int count;
+
 	private TreeNode<K, V> left;
 
 	private TreeNode<K, V> right;
@@ -19,6 +21,7 @@ TreeNode<K extends Comparable<K>, V> {
 	public TreeNode(K key, V value) {
 		this.key = key;
 		this.value = value;
+		this.count = 1;
 	}
 
 	public void add(K key, V value) {		
@@ -35,6 +38,9 @@ TreeNode<K extends Comparable<K>, V> {
 				right.add(key, value);
 
 			}
+
+		} else if (key.compareTo(this.key) == 0) {
+			this.count++;
 
 		} else {
 
@@ -120,6 +126,8 @@ TreeNode<K extends Comparable<K>, V> {
 	public K getKey() {
 		return key;
 	}
+
+	public int getCount(){return count;}
 
 	public void setValue(V value) {
 		this.value = value;

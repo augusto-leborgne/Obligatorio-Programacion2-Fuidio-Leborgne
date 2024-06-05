@@ -23,12 +23,12 @@ SearchBinaryTreeImplTest {
 		
 		MyList<Integer> colValues = oTree.inOrder();
 		
-		assertEquals(new Integer(-1), colValues.get(0));
-		assertEquals(new Integer(3), colValues.get(1));
-		assertEquals(new Integer(4), colValues.get(2));
-		assertEquals(new Integer(11), colValues.get(3));
-		assertEquals(new Integer(18), colValues.get(4));
-		assertEquals(new Integer(21), colValues.get(5));
+		assertEquals(Integer.valueOf(-1), colValues.get(0));
+		assertEquals(Integer.valueOf(3), colValues.get(1));
+		assertEquals(Integer.valueOf(4), colValues.get(2));
+		assertEquals(Integer.valueOf(11), colValues.get(3));
+		assertEquals(Integer.valueOf(18), colValues.get(4));
+		assertEquals(Integer.valueOf(21), colValues.get(5));
 	}
 
 	@Test
@@ -48,9 +48,9 @@ SearchBinaryTreeImplTest {
 		
 		MyList<Integer> colValues = oTree.inOrder();
 
-		assertEquals(new Integer(4), colValues.get(0));
-		assertEquals(new Integer(11), colValues.get(1));
-		assertEquals(new Integer(21), colValues.get(2));
+		assertEquals(Integer.valueOf(4), colValues.get(0));
+		assertEquals(Integer.valueOf(11), colValues.get(1));
+		assertEquals(Integer.valueOf(21), colValues.get(2));
 	}
 	
 	@Test
@@ -87,13 +87,13 @@ SearchBinaryTreeImplTest {
 		oTree.remove(-1);
 		oTree.remove(18);
 		
-		Integer oTemp = oTree.find(3);
+		Integer oTemp = oTree.find(3).getValue();
 		
 		assertNull(oTemp);
 		
-		oTemp = oTree.find(21);
+		oTemp = oTree.find(21).getValue();
 		
-		assertEquals(new Integer(21), oTemp);
+		assertEquals(Integer.valueOf(21), oTemp);
 
 	}
 	

@@ -26,13 +26,13 @@ public class MySearchBinaryTreeImpl<K extends Comparable<K>, V> implements
 		}
 	}
 	
-	public V find(K key) {
+	public TreeNode<K, V> find(K key) {
 
 		return find(key, root);
 	}
 
-	private V find(K keyToSearch, TreeNode<K, V> root) {
-		V value = null;
+	private TreeNode<K, V> find(K keyToSearch, TreeNode<K, V> root) {
+		TreeNode<K, V> node = null;
 		
 		if (root != null) {
 
@@ -40,21 +40,21 @@ public class MySearchBinaryTreeImpl<K extends Comparable<K>, V> implements
 
 			if (nValue == 0) {
 				
-				value = root.getValue();
+				node = root;
 				
 			} else if (nValue > 0) {
 				
-				value = find(keyToSearch, root.getRight());
+				node = find(keyToSearch, root.getRight());
 				
 			} else {
 
-				value = find(keyToSearch, root.getLeft());
+				node = find(keyToSearch, root.getLeft());
 
 			}
 
 		}
 
-		return value;
+		return node;
 	}
 
 	public boolean contains(K key) {
