@@ -14,16 +14,16 @@ public class Main {
             System.out.println("Menu:");
             System.out.println("1. Top 10 canciones en un país y un día dado.");
             System.out.println("2. Top 5 canciones que aparecen en más top 50 en un día dado.");
-            System.out.println("3. Option 3");
-            System.out.println("4. Option 4");
-            System.out.println("5. Exit");
+            System.out.println("3. Top 7 artistas en un rango de fechas");
+            System.out.println("4. Cantidad de veces que aparece un artista en un top 50 con fecha dada");
+            System.out.println("5. Cantidad de canciones en un rango de tempo y fechas");
             System.out.println("6. Salir");
-            System.out.print("Enter your choice: ");
+            System.out.print("Ingrese la opción a elegir: ");
 
             while (!scanner.hasNextInt()) {
-                System.out.println("Invalid input. Please enter a number between 1 and 6.");
+                System.out.println("ERROR. Ingrese un número entre 1 y 6.");
                 scanner.next();
-                System.out.print("Enter your choice: ");
+                System.out.print("Ingrese la opción a elegir: ");
             }
 
             choice = scanner.nextInt();
@@ -48,7 +48,7 @@ public class Main {
 
                     break;
                 default:
-                    System.out.println("Invalid choice. Please enter a number between 1 and 5.");
+                    System.out.println("Numero inválido. Ingrese un número entre 1 y 6.");
             }
         } while (choice != 6);
 
@@ -56,8 +56,6 @@ public class Main {
     }
 
     private static void option1(Reports report) {
-        System.out.println("Option 1 selected.");
-
         ArrayList<String> top10 = report.top10("ZA", "2024-01-14");
         for (int i = 0; i < top10.size(); i++) {
             System.out.println(top10.get(i));
@@ -65,7 +63,6 @@ public class Main {
     }
 
     private static void option2(Reports report) {
-        System.out.println("Option 2 selected.");
         ArrayList<String> top5 = report.top5("2024-01-14");
         for (int i = 0; i < top5.size(); i++) {
             System.out.println(top5.get(i));
@@ -73,18 +70,20 @@ public class Main {
     }
 
     private static void option3(Reports report) {
-        System.out.println("Option 3 selected.");
-        // Add your code for option 3 here
+        ArrayList<String> top7 = report.top7("2024-01-09", "2024-01-13");
+        for (int i = 0; i < top7.size(); i++) {
+            System.out.println(top7.get(i));
+        }
     }
 
     private static void option4(Reports report) {
-        System.out.println("Option 4 selected.");
-        // Add your code for option 4 here
+        int c = report.cantArtista("Travis Scott","2024-01-05", "AE");
+        System.out.println("Travis Scott aparece " + c + " veces en la fecha y país dados.");
     }
 
     private static void option5(Reports report) {
-        System.out.println("Option 4 selected.");
-        // Add your code for option 4 here
+        int c = report.cantCanciones(120.043, 121.100,"2024-01-09", "2024-01-13");
+        System.out.println("Hay " + c + " canciones en el rango de tempo y fechas ingresados");
     }
 
 
