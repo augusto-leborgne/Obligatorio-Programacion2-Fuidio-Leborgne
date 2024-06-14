@@ -17,6 +17,10 @@ import java.util.ArrayList;
 
 public class Reports {
 
+    public Reports(){
+
+    }
+
     public ArrayList<String> top10(String p, String d) {
         MyHeapImpl<Integer> heap = new MyHeapImpl<>(true);
         MyHashImpl<Integer, String> hash = new MyHashImpl<>();
@@ -218,9 +222,6 @@ public class Reports {
         int count = 0;
 
         try (BufferedReader in = new BufferedReader(new FileReader(new File("universal_top_spotify_songs.csv")))) {
-            String tis = String.format("%.3f", ti);
-            String tfs = String.format("%.3f", tf);
-
 
             int line = 0;
             for (String x = in.readLine(); x != null; x = in.readLine()) {
@@ -231,11 +232,10 @@ public class Reports {
                     for (int i = 0; i < valores.length; i++) {
                         valores[i] = valores[i].replace("\"", "");
                     }
-                    Double td = Double.parseDouble(valores[23]);
-                    String ts = String.format("%.3f", td);
+                    double td = Double.parseDouble(valores[23]);
 
                     if (valores[7].compareTo(di) >= 0 && valores[7].compareTo(df) <= 0
-                            && ts.compareTo(tis) >= 0 && ts.compareTo(tfs) <= 0) {
+                            && td >= ti && td <= tf) {
                         count++;
                     }
                 }

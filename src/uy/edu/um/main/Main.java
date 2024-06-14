@@ -60,6 +60,7 @@ public class Main {
         for (int i = 0; i < top10.size(); i++) {
             System.out.println(top10.get(i));
         }
+        System.out.println();
     }
 
     private static void option2(Reports report) {
@@ -67,6 +68,7 @@ public class Main {
         for (int i = 0; i < top5.size(); i++) {
             System.out.println(top5.get(i));
         }
+        System.out.println();
     }
 
     private static void option3(Reports report) {
@@ -74,17 +76,16 @@ public class Main {
         for (int i = 0; i < top7.size(); i++) {
             System.out.println(top7.get(i));
         }
+        System.out.println();
     }
 
     private static void option4(Reports report) {
         int c = report.cantArtista("Travis Scott","2024-01-05", "AE");
-        System.out.println("Travis Scott aparece " + c + " veces en la fecha y país dados.");
+        System.out.println("Travis Scott aparece " + c + " veces en la fecha y país dados.\n");
     }
 
     private static void option5(Reports report) {
-        int c = report.cantCanciones(120.043, 121.100,"2024-01-09", "2024-01-13");
-        System.out.println("Hay " + c + " canciones en el rango de tempo y fechas ingresados");
+        int c = report.cantCanciones(120.043, 120.047,"2024-01-09", "2024-01-11");
+        System.out.println("Hay " + c + " canciones en el rango de tempo y fechas ingresados\n");
     }
-
-
 }
