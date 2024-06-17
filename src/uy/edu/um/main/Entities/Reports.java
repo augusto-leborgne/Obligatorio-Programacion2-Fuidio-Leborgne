@@ -1,4 +1,4 @@
-package uy.edu.um.main;
+package uy.edu.um.main.Entities;
 
 import uy.edu.um.adt.binarytree.MySearchBinaryTreeImpl;
 import uy.edu.um.adt.binarytree.TreeNode;
@@ -7,73 +7,83 @@ import uy.edu.um.adt.hash.MyHashImpl;
 import uy.edu.um.adt.heap.MyHeapImpl;
 import uy.edu.um.adt.linkedlist.MyList;
 import uy.edu.um.adt.linkedlist.Node;
+import uy.edu.um.main.Exceptions.DatosInvalidosException;
 
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 
 
-public class Reports {
+public class Reports implements ReportsInterface {
 
-    public Reports(){
+    public Reports() {
 
     }
 
-    public ArrayList<String> top10(String p, String d) {
+    public ArrayList<String> top10(String p, String d) throws DatosInvalidosException {
         MyHeapImpl<Integer> heap = new MyHeapImpl<>(true);
         MyHashImpl<Integer, String> hash = new MyHashImpl<>();
-
-        try (BufferedReader in = new BufferedReader(new FileReader(new File("universal_top_spotify_songs.csv")))) {
-
-            int line = 0;
-            for (String x = in.readLine(); x != null; x = in.readLine()) {
-                line++;
-                String[] valores = x.split("\",\"");
-
-                for (int i=0; i<valores.length; i++){
-                    valores[i] = valores[i].replace("\"","");
-                }
-
-                if (line != 1 && valores[6].equals(p) && valores[7].equals(d)) {
-                    int k = Integer.parseInt(valores[3]);
-                    hash.put(k, x);
-                    heap.insert(k);
-                }
-            }
-
-
-            ArrayList<String> songs = new ArrayList<>();
-            int count = 0;
-            while (count < 10 && heap.size() > 0) {
-                int k = heap.delete();
-                String songData = hash.get(k);
-                if (songData != null) {
-                    songs.add(songData);
-                    count++;
-                }
-            }
-
-            return songs;
-
-
-        } catch (IOException e) {
-            System.out.println("File I/O error!");
-            e.printStackTrace();
-            return null;
-        } catch (KeyNullException e) {
-            System.out.println("Key Null ERROR!");
-            e.printStackTrace();
-            return null;
+        if (p == null || d == null || !esFormatoValido(d)){
+            throw new DatosInvalidosException();
         }
+
+            try (BufferedReader in = new BufferedReader(new FileReader(new File("universal_top_spotify_songs.csv")))) {
+
+                int line = 0;
+                for (String x = in.readLine(); x != null; x = in.readLine()) {
+                    line++;
+                    String[] valores = x.split("\",\"");
+
+                    for (int i = 0; i < valores.length; i++) {
+                        valores[i] = valores[i].replace("\"", "");
+                    }
+
+                    if (line != 1 && valores[6].equals(p) && valores[7].equals(d)) {
+                        int k = Integer.parseInt(valores[3]);
+                        hash.put(k, x);
+                        heap.insert(k);
+                    }
+                }
+
+
+                ArrayList<String> songs = new ArrayList<>();
+                int count = 0;
+                while (count < 10 && heap.size() > 0) {
+                    int k = heap.delete();
+                    String songData = hash.get(k);
+                    if (songData != null) {
+                        songs.add(songData);
+                        count++;
+                    }
+                }
+
+                return songs;
+
+
+            } catch (IOException e) {
+                System.out.println("File I/O error!");
+                e.printStackTrace();
+                return null;
+            } catch (KeyNullException e) {
+                System.out.println("Key Null ERROR!");
+                e.printStackTrace();
+                return null;
+            }
     }
 
-    public ArrayList<String> top5(String d) {
+    public ArrayList<String> top5(String d) throws DatosInvalidosException {
         MyHeapImpl<Integer> heap = new MyHeapImpl<>(false);
         MyHashImpl<Integer, String> hash = new MyHashImpl<>();
         MySearchBinaryTreeImpl<String, String> bst = new MySearchBinaryTreeImpl<>();
 
+        if (d == null || !esFormatoValido(d)){
+            throw new DatosInvalidosException();
+        }
+
         try (BufferedReader in = new BufferedReader(new FileReader(new File("universal_top_spotify_songs.csv")))) {
 
             int line = 0;
@@ -81,8 +91,8 @@ public class Reports {
                 line++;
                 String[] valores = x.split("\",\"");
 
-                for (int i=0; i<valores.length; i++){
-                    valores[i] = valores[i].replace("\"","");
+                for (int i = 0; i < valores.length; i++) {
+                    valores[i] = valores[i].replace("\"", "");
                 }
 
                 if (line != 1 && valores[7].equals(d)) {
@@ -92,7 +102,7 @@ public class Reports {
             }
 
             MyList<TreeNode<String, String>> listKeys = bst.inOrder();
-            for(Node<TreeNode<String, String>> temp = listKeys.getFirst(); temp != listKeys.getLast(); temp = temp.getNext()){
+            for (Node<TreeNode<String, String>> temp = listKeys.getFirst(); temp != listKeys.getLast(); temp = temp.getNext()) {
                 int c = temp.getValue().getCount();
                 String v = temp.getValue().getValue();
                 hash.put(c, v);
@@ -125,10 +135,14 @@ public class Reports {
         }
     }
 
-    public ArrayList<String> top7(String di, String df){
+    public ArrayList<String> top7(String di, String df) throws DatosInvalidosException {
         MyHeapImpl<Integer> heap = new MyHeapImpl<>(false);
         MyHashImpl<Integer, String> hash = new MyHashImpl<>();
         MySearchBinaryTreeImpl<String, String> bst = new MySearchBinaryTreeImpl<>();
+
+        if (di == null || df == null || !esFormatoValido(di) || !esFormatoValido(df)){
+            throw new DatosInvalidosException();
+        }
 
         try (BufferedReader in = new BufferedReader(new FileReader(new File("universal_top_spotify_songs.csv")))) {
 
@@ -137,13 +151,13 @@ public class Reports {
                 line++;
                 String[] valores = x.split("\",\"");
 
-                for (int i=0; i<valores.length; i++){
-                    valores[i] = valores[i].replace("\"","");
+                for (int i = 0; i < valores.length; i++) {
+                    valores[i] = valores[i].replace("\"", "");
                 }
 
                 if (line != 1 && valores[7].compareToIgnoreCase(di) >= 0 && valores[7].compareToIgnoreCase(df) <= 0) {
                     String[] artistas = valores[2].split(", ");
-                    for (int i=0; i<artistas.length; i++){
+                    for (int i = 0; i < artistas.length; i++) {
                         String k = artistas[i];
                         bst.add(k, x);
                     }
@@ -151,7 +165,7 @@ public class Reports {
             }
 
             MyList<TreeNode<String, String>> nodosArtistas = bst.inOrder();
-            for(Node<TreeNode<String, String>> temp = nodosArtistas.getFirst(); temp != nodosArtistas.getLast(); temp = temp.getNext()){
+            for (Node<TreeNode<String, String>> temp = nodosArtistas.getFirst(); temp != nodosArtistas.getLast(); temp = temp.getNext()) {
                 int c = temp.getValue().getCount();
                 String a = temp.getValue().getKey();
                 hash.put(c, a);
@@ -184,8 +198,12 @@ public class Reports {
         }
     }
 
-    public int cantArtista (String a, String d, String p){
+    public int cantArtista(String a, String d, String p) throws DatosInvalidosException {
         int count = 0;
+
+        if (a == null || d == null || p == null || esFormatoValido(d)){
+            throw new DatosInvalidosException();
+        }
 
         try (BufferedReader in = new BufferedReader(new FileReader(new File("universal_top_spotify_songs.csv")))) {
 
@@ -194,15 +212,15 @@ public class Reports {
                 line++;
                 String[] valores = x.split("\",\"");
 
-                for (int i=0; i<valores.length; i++){
-                    valores[i] = valores[i].replace("\"","");
+                for (int i = 0; i < valores.length; i++) {
+                    valores[i] = valores[i].replace("\"", "");
                 }
 
                 if (line != 1 && valores[7].equals(d) && valores[6].equals(p)) {
                     String[] artistas = valores[2].split(", ");
-                    for (int i=0; i<artistas.length; i++){
-                        artistas[i] = artistas[i].replace("\"","");
-                        if (artistas[i].equals(a)){
+                    for (int i = 0; i < artistas.length; i++) {
+                        artistas[i] = artistas[i].replace("\"", "");
+                        if (artistas[i].equals(a)) {
                             count++;
                         }
                     }
@@ -218,8 +236,12 @@ public class Reports {
         }
     }
 
-    public int cantCanciones (Double ti, Double tf, String di, String df) {
+    public int cantCanciones(Double ti, Double tf, String di, String df) throws DatosInvalidosException {
         int count = 0;
+
+        if (ti == null || tf == null || di == null || df == null || !esFormatoValido(di) || !esFormatoValido(df)){
+            throw new DatosInvalidosException();
+        }
 
         try (BufferedReader in = new BufferedReader(new FileReader(new File("universal_top_spotify_songs.csv")))) {
 
@@ -227,7 +249,7 @@ public class Reports {
             for (String x = in.readLine(); x != null; x = in.readLine()) {
                 line++;
 
-                if (line != 1){
+                if (line != 1) {
                     String[] valores = x.split("\",\"");
                     for (int i = 0; i < valores.length; i++) {
                         valores[i] = valores[i].replace("\"", "");
@@ -248,5 +270,17 @@ public class Reports {
             e.printStackTrace();
             return 0;
         }
+
+
     }
+    public static boolean esFormatoValido(String fecha) {
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+        try {
+            LocalDate.parse(fecha, formatter);
+            return true;
+        } catch (Exception e) {
+            return false;
+        }
+    }
+
 }

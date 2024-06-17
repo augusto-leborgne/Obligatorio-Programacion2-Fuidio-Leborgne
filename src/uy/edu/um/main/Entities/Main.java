@@ -1,14 +1,17 @@
-package uy.edu.um.main;
+package uy.edu.um.main.Entities;
 
+
+import uy.edu.um.main.Exceptions.DatosInvalidosException;
 
 import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Main {
-    public static void main(String[] args) {
+    public static void main(String[] args) throws DatosInvalidosException {
         Reports report = new Reports();
         Scanner scanner = new Scanner(System.in);
         int choice;
+        // Opciones
 
         do {
             System.out.println("Menu:");
@@ -55,7 +58,7 @@ public class Main {
         scanner.close();
     }
 
-    private static void option1(Reports report) {
+    private static void option1(Reports report) throws DatosInvalidosException {
         ArrayList<String> top10 = report.top10("ZA", "2024-01-14");
         for (int i = 0; i < top10.size(); i++) {
             System.out.println(top10.get(i));
@@ -63,7 +66,7 @@ public class Main {
         System.out.println();
     }
 
-    private static void option2(Reports report) {
+    private static void option2(Reports report) throws DatosInvalidosException {
         ArrayList<String> top5 = report.top5("2024-01-14");
         for (int i = 0; i < top5.size(); i++) {
             System.out.println(top5.get(i));
@@ -71,7 +74,7 @@ public class Main {
         System.out.println();
     }
 
-    private static void option3(Reports report) {
+    private static void option3(Reports report) throws DatosInvalidosException {
         ArrayList<String> top7 = report.top7("2024-01-09", "2024-01-13");
         for (int i = 0; i < top7.size(); i++) {
             System.out.println(top7.get(i));
@@ -79,12 +82,12 @@ public class Main {
         System.out.println();
     }
 
-    private static void option4(Reports report) {
+    private static void option4(Reports report) throws DatosInvalidosException {
         int c = report.cantArtista("Travis Scott","2024-01-05", "AE");
         System.out.println("Travis Scott aparece " + c + " veces en la fecha y país dados.\n");
     }
 
-    private static void option5(Reports report) {
+    private static void option5(Reports report) throws DatosInvalidosException {
         int c = report.cantCanciones(120.043, 120.047,"2024-01-09", "2024-01-11");
         System.out.println("Hay " + c + " canciones en el rango de tempo y fechas ingresados\n");
     }
