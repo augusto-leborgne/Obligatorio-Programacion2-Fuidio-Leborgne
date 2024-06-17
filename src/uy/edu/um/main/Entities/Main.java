@@ -1,6 +1,7 @@
 package uy.edu.um.main.Entities;
 
 
+import uy.edu.um.adt.hash.KeyNullException;
 import uy.edu.um.main.Exceptions.DatosInvalidosException;
 
 import java.util.ArrayList;
@@ -58,37 +59,72 @@ public class Main {
         scanner.close();
     }
 
-    private static void option1(Reports report) throws DatosInvalidosException {
-        ArrayList<String> top10 = report.top10("ZA", "2024-01-14");
+    private static void option1(Reports report) {
+        ArrayList<String> top10 = null;
+        try {
+            top10 = report.top10("ZA", "2024-01-14");
+        } catch (DatosInvalidosException e) {
+            throw new RuntimeException(e);
+        } catch (KeyNullException e) {
+            throw new RuntimeException(e);
+        }
         for (int i = 0; i < top10.size(); i++) {
             System.out.println(top10.get(i));
         }
         System.out.println();
     }
 
-    private static void option2(Reports report) throws DatosInvalidosException {
-        ArrayList<String> top5 = report.top5("2024-01-14");
+    private static void option2(Reports report) {
+        ArrayList<String> top5 = null;
+        try {
+            top5 = report.top5("2024-01-14");
+        } catch (DatosInvalidosException e) {
+            throw new RuntimeException(e);
+        } catch (KeyNullException e) {
+            throw new RuntimeException(e);
+        }
         for (int i = 0; i < top5.size(); i++) {
             System.out.println(top5.get(i));
         }
         System.out.println();
     }
 
-    private static void option3(Reports report) throws DatosInvalidosException {
-        ArrayList<String> top7 = report.top7("2024-01-09", "2024-01-13");
+    private static void option3(Reports report){
+        ArrayList<String> top7 = null;
+        try {
+            top7 = report.top7("2024-01-09", "2024-01-13");
+        } catch (DatosInvalidosException e) {
+            throw new RuntimeException(e);
+        } catch (KeyNullException e) {
+            throw new RuntimeException(e);
+        }
         for (int i = 0; i < top7.size(); i++) {
             System.out.println(top7.get(i));
         }
         System.out.println();
     }
 
-    private static void option4(Reports report) throws DatosInvalidosException {
-        int c = report.cantArtista("Travis Scott","2024-01-05", "AE");
+    private static void option4(Reports report){
+        int c = 0;
+        try {
+            c = report.cantArtista("Travis Scott","2024-01-05", "AE");
+        } catch (KeyNullException e) {
+            throw new RuntimeException(e);
+        } catch (DatosInvalidosException e) {
+            throw new RuntimeException(e);
+        }
         System.out.println("Travis Scott aparece " + c + " veces en la fecha y país dados.\n");
     }
 
-    private static void option5(Reports report) throws DatosInvalidosException {
-        int c = report.cantCanciones(120.043, 120.047,"2024-01-09", "2024-01-11");
+    private static void option5(Reports report)  {
+        int c = 0;
+        try {
+            c = report.cantCanciones(120.043, 120.047,"2024-01-09", "2024-01-11");
+        } catch (KeyNullException e) {
+            throw new RuntimeException(e);
+        } catch (DatosInvalidosException e) {
+            throw new RuntimeException(e);
+        }
         System.out.println("Hay " + c + " canciones en el rango de tempo y fechas ingresados\n");
         System.out.println("Hola mundo");
     }
