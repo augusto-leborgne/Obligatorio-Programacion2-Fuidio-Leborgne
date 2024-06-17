@@ -90,5 +90,6 @@ public class Main {
     private static void option5(Reports report) throws DatosInvalidosException {
         int c = report.cantCanciones(120.043, 120.047,"2024-01-09", "2024-01-11");
         System.out.println("Hay " + c + " canciones en el rango de tempo y fechas ingresados\n");
+        System.out.println("Hola mundo");
     }
 }
