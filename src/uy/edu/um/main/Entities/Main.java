@@ -1,7 +1,6 @@
 package uy.edu.um.main.Entities;
 
 
-import uy.edu.um.adt.hash.KeyNotFound;
 import uy.edu.um.adt.hash.KeyNullException;
 import uy.edu.um.main.Exceptions.DatosInvalidosException;
 
@@ -71,13 +70,15 @@ public class Main {
         long startTime = System.currentTimeMillis();
         try {
             top10 = report.top10(country, date);
-        } catch (DatosInvalidosException | KeyNullException | KeyNotFound e) {
+        } catch (DatosInvalidosException | KeyNullException e) {
             System.err.println("Error: " + e.getMessage());
             return;
         }
 
-        for (String song : top10) {
-            System.out.println(song);
+        if(top10 != null) {
+            for (String song : top10) {
+                System.out.println(song);
+            }
         }
         System.out.println();
         long endTime = System.currentTimeMillis();
@@ -96,7 +97,7 @@ public class Main {
         long startTime = System.currentTimeMillis();
         try {
             top5 = report.top5(date);
-        } catch (DatosInvalidosException | KeyNullException | KeyNotFound e) {
+        } catch (DatosInvalidosException | KeyNullException e) {
             System.err.println("Error: " + e.getMessage());
             return;
         }
@@ -122,7 +123,7 @@ public class Main {
         long startTime = System.currentTimeMillis();
         try {
             top7Artists = report.top7(startDate, endDate);
-        } catch (DatosInvalidosException | KeyNullException | KeyNotFound e) {
+        } catch (DatosInvalidosException | KeyNullException e) {
             System.err.println("Error: " + e.getMessage());
             return;
         }
@@ -151,7 +152,7 @@ public class Main {
         long startTime = System.currentTimeMillis();
         try {
             count = report.cantArtista(artist, date,pais);
-        } catch (DatosInvalidosException | KeyNullException | KeyNotFound e) {
+        } catch (DatosInvalidosException | KeyNullException  e) {
             System.err.println("Error: " + e.getMessage());
             return;
         }
@@ -180,7 +181,7 @@ public class Main {
         long startTime = System.currentTimeMillis();
         try {
             count = report.cantCanciones(minTempo, maxTempo, startDate, endDate);
-        } catch (DatosInvalidosException | KeyNullException | KeyNotFound e) {
+        } catch (DatosInvalidosException | KeyNullException  e) {
             System.err.println("Error: " + e.getMessage());
             return;
         }

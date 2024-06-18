@@ -3,7 +3,6 @@ package uy.edu.um.main.Entities;
 import uy.edu.um.adt.binarytree.MySearchBinaryTree;
 import uy.edu.um.adt.binarytree.MySearchBinaryTreeImpl;
 import uy.edu.um.adt.binarytree.TreeNode;
-import uy.edu.um.adt.hash.KeyNotFound;
 import uy.edu.um.adt.hash.KeyNullException;
 import uy.edu.um.adt.hash.MyHash;
 import uy.edu.um.adt.hash.MyHashImpl;
@@ -104,12 +103,10 @@ public class Reports implements ReportsInterface {
             } catch (KeyNullException e) {
                 System.out.println("Key Null ERROR!");
                 e.printStackTrace();
-            } catch (KeyNotFound e) {
-                System.out.println("Key Not Found ERROR!");
             }
     }
 
-    public ArrayList<String> top10(String p, String d) throws DatosInvalidosException, KeyNullException, KeyNotFound {
+    public ArrayList<String> top10(String p, String d) throws DatosInvalidosException, KeyNullException {
         if (p == null || d == null || !esFormatoValido(d)){
             throw new DatosInvalidosException("Datos Inválidos");
         }
@@ -117,36 +114,41 @@ public class Reports implements ReportsInterface {
         MyHeap<Integer> heap = new MyHeapImpl<>(true);
         MyHash<Integer, String> hash = new MyHashImpl<>();
 
-        MyList<String> listaCanciones = this.hashCancionesFechaPais.get(d).get(p);
+        try {
+            MyList<String> listaCanciones = this.hashCancionesFechaPais.get(d).get(p);
 
-        for (Node<String> nodeTemp = listaCanciones.getFirst(); nodeTemp != null; nodeTemp = nodeTemp.getNext()) {
-            String[] valores = nodeTemp.getValue().split("\",\"");
+            for (Node<String> nodeTemp = listaCanciones.getFirst(); nodeTemp != null; nodeTemp = nodeTemp.getNext()) {
+                String[] valores = nodeTemp.getValue().split("\",\"");
 
-            for (int i=0; i<valores.length; i++){
-                valores[i] = valores[i].replace("\"","");
+                for (int i = 0; i < valores.length; i++) {
+                    valores[i] = valores[i].replace("\"", "");
+                }
+
+                int k = Integer.parseInt(valores[3]);
+                hash.put(k, nodeTemp.getValue());
+                heap.insert(k);
             }
 
-            int k = Integer.parseInt(valores[3]);
-            hash.put(k, nodeTemp.getValue());
-            heap.insert(k);
-        }
 
-
-        ArrayList<String> songs = new ArrayList<>();
-        int count = 0;
-        while (count < 10 && heap.size() > 0) {
-            int k = heap.delete();
-            String songData = hash.get(k);
-            if (songData != null) {
-                songs.add(songData);
-                count++;
+            ArrayList<String> songs = new ArrayList<>();
+            int count = 0;
+            while (count < 10 && heap.size() > 0) {
+                int k = heap.delete();
+                String songData = hash.get(k);
+                if (songData != null) {
+                    songs.add(songData);
+                    count++;
+                }
             }
-        }
 
-        return songs;
+            return songs;
+        }catch (NullPointerException e){
+            System.out.println("No se han encontrado resultados con los datos ingresados");
+            return null;
+        }
     }
 
-    public ArrayList<String> top5(String d) throws DatosInvalidosException, KeyNullException, KeyNotFound {
+    public ArrayList<String> top5(String d) throws DatosInvalidosException, KeyNullException {
         if (d == null || !esFormatoValido(d)){
             throw new DatosInvalidosException("Datos Inválidos");
         }
@@ -169,7 +171,7 @@ public class Reports implements ReportsInterface {
         }
 
         MyList<TreeNode<String, String>> listKeys = bst.inOrder();
-        for(Node<TreeNode<String, String>> temp = listKeys.getFirst(); temp != listKeys.getLast(); temp = temp.getNext()){
+        for (Node<TreeNode<String, String>> temp = listKeys.getFirst(); temp != listKeys.getLast(); temp = temp.getNext()) {
             int c = temp.getValue().getCount();
             String v = temp.getValue().getValue();
             hash.put(c, v);
@@ -191,7 +193,7 @@ public class Reports implements ReportsInterface {
         return songs;
     }
 
-    public ArrayList<String> top7(String di, String df) throws DatosInvalidosException, KeyNullException, KeyNotFound {
+    public ArrayList<String> top7(String di, String df) throws DatosInvalidosException, KeyNullException {
         if (di == null || df == null || !esFormatoValido(di) || !esFormatoValido(df)){
             throw new DatosInvalidosException("Datos Inválidos");
         }
@@ -246,37 +248,42 @@ public class Reports implements ReportsInterface {
         return songs;
     }
 
-    public int cantArtista(String a, String d, String p) throws DatosInvalidosException, KeyNullException, KeyNotFound {
+    public int cantArtista(String a, String d, String p) throws DatosInvalidosException, KeyNullException {
         if (a == null || d == null || p == null || !esFormatoValido(d)){
             throw new DatosInvalidosException("Datos Inválidos");
         }
-
-        MyList<String> listaCanciones = this.hashCancionesFechaPais.get(d).get(p);
         int count = 0;
 
-        if (listaCanciones != null){
-            for (Node<String> nodo = listaCanciones.getFirst(); nodo != null; nodo = nodo.getNext()){
-                String x = nodo.getValue();
-                String[] valores = x.split("\",\"");
+        try {
+            MyList<String> listaCanciones = this.hashCancionesFechaPais.get(d).get(p);
 
-                for (int i=0; i<valores.length; i++){
-                    valores[i] = valores[i].replace("\"","");
-                }
+            if (listaCanciones != null) {
+                for (Node<String> nodo = listaCanciones.getFirst(); nodo != null; nodo = nodo.getNext()) {
+                    String x = nodo.getValue();
+                    String[] valores = x.split("\",\"");
 
-                String[] artistas = valores[2].split(", ");
-                for (int i=0; i<artistas.length; i++){
-                    artistas[i] = artistas[i].replace("\"","");
-                    if (artistas[i].equals(a)){
-                        count++;
+                    for (int i = 0; i < valores.length; i++) {
+                        valores[i] = valores[i].replace("\"", "");
+                    }
+
+                    String[] artistas = valores[2].split(", ");
+                    for (int i = 0; i < artistas.length; i++) {
+                        artistas[i] = artistas[i].replace("\"", "");
+                        if (artistas[i].equals(a)) {
+                            count++;
+                        }
                     }
                 }
             }
-        }
 
-        return count;
+            return count;
+        }catch (NullPointerException e){
+            System.out.println("No se han encontrado resultados con los datos ingresados");
+            return -1;
+        }
     }
 
-    public int cantCanciones(Double ti, Double tf, String di, String df) throws DatosInvalidosException, KeyNullException, KeyNotFound {
+    public int cantCanciones(Double ti, Double tf, String di, String df) throws DatosInvalidosException, KeyNullException {
         if (ti == null || tf == null || di == null || df == null || !esFormatoValido(di) || !esFormatoValido(df)){
             throw new DatosInvalidosException("Datos Inválidos");
         }
@@ -288,10 +295,12 @@ public class Reports implements ReportsInterface {
             String fechaString = fecha.toString();
             for (Double t = ti; t <= tf; t = t + 0.001){
 
-                MyList<String> listaCanciones = this.hashCancionesFechaTempo.get(fechaString).get(t);
-                if(listaCanciones != null) {
-                    count = count + listaCanciones.size();
-                }
+                try {
+                    MyList<String> listaCanciones = this.hashCancionesFechaTempo.get(fechaString).get(t);
+                    if (listaCanciones != null) {
+                        count = count + listaCanciones.size();
+                    }
+                }catch (NullPointerException ignored){}
             }
         }
 
