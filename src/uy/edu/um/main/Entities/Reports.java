@@ -28,6 +28,7 @@ public class Reports implements ReportsInterface {
     private MyHash<String, MyHash<Double, MyList<String>>> hashCancionesFechaTempo;
 
     public Reports(){
+            long startTime = System.currentTimeMillis();
             this.hashCancionesFechaPais = new MyHashImpl<>();
             this.hashCancionesFecha = new MyHashImpl<>();
             this.hashCancionesFechaTempo = new MyHashImpl<>();
@@ -104,6 +105,10 @@ public class Reports implements ReportsInterface {
                 System.out.println("Key Null ERROR!");
                 e.printStackTrace();
             }
+            long endTime = System.currentTimeMillis();
+            long totalTime = endTime - startTime;
+
+            System.out.println("Tiempo total de ejecución en milisegundos Carga de datos: " + totalTime);
     }
 
     public ArrayList<String> top10(String p, String d) throws DatosInvalidosException, KeyNullException {
