@@ -68,6 +68,7 @@ public class Main {
         String date = scanner.nextLine();
 
         ArrayList<String> top10 = null;
+        long startTime = System.currentTimeMillis();
         try {
             top10 = report.top10(country, date);
         } catch (DatosInvalidosException | KeyNullException | KeyNotFound e) {
@@ -79,6 +80,11 @@ public class Main {
             System.out.println(song);
         }
         System.out.println();
+        long endTime = System.currentTimeMillis();
+        long totalTime = endTime - startTime;
+
+        System.out.println("Tiempo total de ejecución en milisegundos op1: " + totalTime);
+
     }
 
     private static void option2(Reports report) {
@@ -87,6 +93,7 @@ public class Main {
         String date = scanner.nextLine();
 
         ArrayList<String> top5 = null;
+        long startTime = System.currentTimeMillis();
         try {
             top5 = report.top5(date);
         } catch (DatosInvalidosException | KeyNullException | KeyNotFound e) {
@@ -97,6 +104,10 @@ public class Main {
         for (String song : top5) {
             System.out.println(song);
         }
+        long endTime = System.currentTimeMillis();
+        long totalTime = endTime - startTime;
+
+        System.out.println("Tiempo total de ejecución en milisegundos op2: " + totalTime);
         System.out.println();
     }
 
@@ -108,6 +119,7 @@ public class Main {
         String endDate = scanner.nextLine();
 
         ArrayList<String> top7Artists = null;
+        long startTime = System.currentTimeMillis();
         try {
             top7Artists = report.top7(startDate, endDate);
         } catch (DatosInvalidosException | KeyNullException | KeyNotFound e) {
@@ -119,6 +131,10 @@ public class Main {
             System.out.println(artist);
         }
         System.out.println();
+        long endTime = System.currentTimeMillis();
+        long totalTime = endTime - startTime;
+
+        System.out.println("Tiempo total de ejecución en milisegundos op3: " + totalTime);
     }
 
     private static void option4(Reports report) {
@@ -132,6 +148,7 @@ public class Main {
 
 
         int count = 0;
+        long startTime = System.currentTimeMillis();
         try {
             count = report.cantArtista(artist, date,pais);
         } catch (DatosInvalidosException | KeyNullException | KeyNotFound e) {
@@ -140,6 +157,10 @@ public class Main {
         }
 
         System.out.println("El artista " + artist + " aparece " + count + " veces en el top 50 el " + date + ".");
+        long endTime = System.currentTimeMillis();
+        long totalTime = endTime - startTime;
+
+        System.out.println("Tiempo total de ejecución en milisegundos op4: " + totalTime);
         System.out.println();
     }
 
@@ -156,6 +177,7 @@ public class Main {
         String endDate = scanner.nextLine();
 
         int count = 0;
+        long startTime = System.currentTimeMillis();
         try {
             count = report.cantCanciones(minTempo, maxTempo, startDate, endDate);
         } catch (DatosInvalidosException | KeyNullException | KeyNotFound e) {
@@ -164,6 +186,10 @@ public class Main {
         }
 
         System.out.println("Hay " + count + " canciones en el rango de tempo " + minTempo + "-" + maxTempo + " entre " + startDate + " y " + endDate + ".");
+        long endTime = System.currentTimeMillis();
+        long totalTime = endTime - startTime;
+
+        System.out.println("Tiempo total de ejecución en milisegundos op5: " + totalTime);
         System.out.println();
     }
 }
