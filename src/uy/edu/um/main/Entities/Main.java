@@ -11,8 +11,7 @@ public class Main {
     public static void main(String[] args) throws DatosInvalidosException {
         Reports report = new Reports();
         Scanner scanner = new Scanner(System.in);
-        int choice;
-        // Opciones
+        int opcion;
 
         do {
             System.out.println("Menu:");
@@ -30,23 +29,23 @@ public class Main {
                 System.out.print("Ingrese la opción a elegir: ");
             }
 
-            choice = scanner.nextInt();
+            opcion = scanner.nextInt();
 
-            switch (choice) {
+            switch (opcion) {
                 case 1:
-                    option1(report);
+                    oTop10(report);
                     break;
                 case 2:
-                    option2(report);
+                    oTop5(report);
                     break;
                 case 3:
-                    option3(report);
+                    oTop7(report);
                     break;
                 case 4:
-                    option4(report);
+                    oCantArtista(report);
                     break;
                 case 5:
-                    option5(report);
+                    oCantCanciones(report);
                     break;
                 case 6:
 
@@ -54,128 +53,127 @@ public class Main {
                 default:
                     System.out.println("Numero inválido. Ingrese un número entre 1 y 6.");
             }
-        } while (choice != 6);
+        } while (opcion != 6);
 
         scanner.close();
     }
 
-    private static void option1(Reports report) {
+    private static void oTop10(Reports report) {
         Scanner scanner = new Scanner(System.in);
         System.out.print("Ingrese el país (código ISO): ");
-        String country = scanner.nextLine();
+        String pais = scanner.nextLine();
         System.out.print("Ingrese la fecha (YYYY-MM-DD): ");
-        String date = scanner.nextLine();
+        String fecha = scanner.nextLine();
 
-        ArrayList<String> top10 = null;
         long startTime = System.currentTimeMillis();
         try {
-            top10 = report.top10(country, date);
+            ArrayList<String> top10 = report.top10(fecha, pais);
+            if (top10 != null) {
+                System.out.println("\nTop 10 canciones del " + fecha + " en " + pais + ":");
+                for (String song : top10) {
+                    System.out.println(song);
+                }
+            }
+
+            System.out.println();
+            long endTime = System.currentTimeMillis();
+            long totalTime = endTime - startTime;
+
+            System.out.println("Tiempo total de ejecución en milisegundos op1: " + totalTime + "\n");
+
         } catch (DatosInvalidosException | KeyNullException e) {
             System.err.println("Error: " + e.getMessage());
-            return;
         }
-
-        if (top10 != null) {
-            for (String song : top10) {
-                System.out.println(song);
-            }
-        }
-        System.out.println();
-        long endTime = System.currentTimeMillis();
-        long totalTime = endTime - startTime;
-
-        System.out.println("Tiempo total de ejecución en milisegundos op1: " + totalTime);
-        System.out.println();
-
     }
 
-    private static void option2(Reports report) {
+    private static void oTop5(Reports report) {
         Scanner scanner = new Scanner(System.in);
         System.out.print("Ingrese la fecha (YYYY-MM-DD): ");
-        String date = scanner.nextLine();
+        String fecha = scanner.nextLine();
 
-        ArrayList<String> top5 = null;
         long startTime = System.currentTimeMillis();
         try {
-            top5 = report.top5(date);
+            ArrayList<String> top5 = report.top5(fecha);
+            if (top5 != null) {
+                System.out.println("\nTop 5 canciones del " + fecha + ":");
+                for (String song : top5) {
+                    System.out.println(song);
+                }
+            }
+
+            long endTime = System.currentTimeMillis();
+            long totalTime = endTime - startTime;
+
+            System.out.println("\nTiempo total de ejecución en milisegundos op2: " + totalTime + "\n");
+
+
         } catch (DatosInvalidosException | KeyNullException e) {
             System.err.println("Error: " + e.getMessage());
-            return;
         }
-
-        for (String song : top5) {
-            System.out.println(song);
-        }
-        long endTime = System.currentTimeMillis();
-        long totalTime = endTime - startTime;
-
-        System.out.println();
-        System.out.println("Tiempo total de ejecución en milisegundos op2: " + totalTime);
-        System.out.println();
     }
 
-    private static void option3(Reports report) {
+    private static void oTop7(Reports report) {
         Scanner scanner = new Scanner(System.in);
         System.out.print("Ingrese la fecha de inicio (YYYY-MM-DD): ");
-        String startDate = scanner.nextLine();
+        String fechaI = scanner.nextLine();
         System.out.print("Ingrese la fecha de fin (YYYY-MM-DD): ");
-        String endDate = scanner.nextLine();
+        String fechaF = scanner.nextLine();
 
-        ArrayList<String> top7Artists = null;
         long startTime = System.currentTimeMillis();
         try {
-            top7Artists = report.top7(startDate, endDate);
+            ArrayList<String> top7Artists = report.top7(fechaI, fechaF);
+
+            System.out.println("Top 7 artistas entre " + fechaI + " y " + fechaF + ":");
+            for (String artist : top7Artists) {
+                System.out.println(artist);
+            }
+
+            long endTime = System.currentTimeMillis();
+            long totalTime = endTime - startTime;
+
+            System.out.println("\nTiempo total de ejecución en milisegundos op3: " + totalTime + "\n");
+
+
         } catch (DatosInvalidosException | KeyNullException e) {
             System.err.println("Error: " + e.getMessage());
-            return;
         }
-
-        for (String artist : top7Artists) {
-            System.out.println(artist);
-        }
-        System.out.println();
-        long endTime = System.currentTimeMillis();
-        long totalTime = endTime - startTime;
-
-        System.out.println("Tiempo total de ejecución en milisegundos op3: " + totalTime);
-        System.out.println();
     }
 
-    private static void option4(Reports report) {
+    private static void oCantArtista(Reports report) {
         Scanner scanner = new Scanner(System.in);
         System.out.print("Ingrese el nombre del artista: ");
-        String artist = scanner.nextLine();
+        String artista = scanner.nextLine();
         System.out.print("Ingrese la fecha (YYYY-MM-DD): ");
-        String date = scanner.nextLine();
+        String fecha = scanner.nextLine();
         System.out.print("Ingrese el pais: ");
         String pais = scanner.nextLine();
 
 
-        int count = 0;
         long startTime = System.currentTimeMillis();
         try {
-            count = report.cantArtista(artist, date, pais);
+            int count = report.cantArtista(artista, fecha, pais);
+            if (count != -1) {
+                System.out.println("El artista " + artista + " aparece " + count + " veces en el top 50 del país " + pais + " el " + fecha + ".");
+
+            }
+
+            long endTime = System.currentTimeMillis();
+            long totalTime = endTime - startTime;
+
+            System.out.println("\nTiempo total de ejecución en milisegundos op4: " + totalTime + "\n");
+
         } catch (DatosInvalidosException | KeyNullException e) {
             System.err.println("Error: " + e.getMessage());
-            return;
         }
-
-        System.out.println("El artista " + artist + " aparece " + count + " veces en el top 50 el " + date + ".");
-        long endTime = System.currentTimeMillis();
-        long totalTime = endTime - startTime;
-
-        System.out.println();
-        System.out.println("Tiempo total de ejecución en milisegundos op4: " + totalTime);
-        System.out.println();
     }
 
-    private static void option5(Reports report) {
+    private static void oCantCanciones(Reports report) {
         Scanner scanner = new Scanner(System.in);
         System.out.print("Ingrese el rango de tempo mínimo: ");
-        double minTempo = scanner.nextInt();
+        double minTempo = scanner.nextDouble();
         System.out.print("Ingrese el rango de tempo máximo: ");
-        double maxTempo = scanner.nextInt();
-        scanner.nextLine();  // consume the newline
+        double maxTempo = scanner.nextDouble();
+        scanner.nextLine();
         System.out.print("Ingrese la fecha de inicio (YYYY-MM-DD): ");
         String startDate = scanner.nextLine();
         System.out.print("Ingrese la fecha de fin (YYYY-MM-DD): ");
@@ -185,17 +183,18 @@ public class Main {
         long startTime = System.currentTimeMillis();
         try {
             count = report.cantCanciones(minTempo, maxTempo, startDate, endDate);
+            if (count != -1) {
+                System.out.println("Hay " + count + " canciones en el rango de tempo " + minTempo + "-" + maxTempo + " entre " + startDate + " y " + endDate + ".");
+            }
+
+            long endTime = System.currentTimeMillis();
+            long totalTime = endTime - startTime;
+
+            System.out.println("\nTiempo total de ejecución en milisegundos op5: " + totalTime + "\n");
+
+
         } catch (DatosInvalidosException | KeyNullException e) {
             System.err.println("Error: " + e.getMessage());
-            return;
         }
-
-        System.out.println("Hay " + count + " canciones en el rango de tempo " + minTempo + "-" + maxTempo + " entre " + startDate + " y " + endDate + ".");
-        long endTime = System.currentTimeMillis();
-        long totalTime = endTime - startTime;
-
-        System.out.println();
-        System.out.println("Tiempo total de ejecución en milisegundos op5: " + totalTime);
-        System.out.println();
     }
 }

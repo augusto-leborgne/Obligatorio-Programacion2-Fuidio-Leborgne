@@ -108,10 +108,10 @@ public class Reports implements ReportsInterface {
         long endTime = System.currentTimeMillis();
         long totalTime = endTime - startTime;
 
-        System.out.println("Tiempo total de ejecución en milisegundos Carga de datos: " + totalTime);
+        System.out.println("Tiempo total de ejecución (en milisegundos) para carga de datos: " + totalTime);
     }
 
-    public ArrayList<String> top10(String p, String d) throws DatosInvalidosException, KeyNullException {
+    public ArrayList<String> top10(String d, String p) throws DatosInvalidosException, KeyNullException {
         if (p == null || d == null || !esFormatoValido(d)) {
             throw new DatosInvalidosException("Datos Inválidos");
         }
@@ -153,7 +153,8 @@ public class Reports implements ReportsInterface {
         }
     }
 
-    public ArrayList<String> top5(String d) throws DatosInvalidosException, KeyNullException {
+
+    public ArrayList<String> top5 (String d) throws DatosInvalidosException, KeyNullException {
         if (d == null || !esFormatoValido(d)) {
             throw new DatosInvalidosException("Datos Inválidos");
         }
@@ -171,8 +172,7 @@ public class Reports implements ReportsInterface {
                 valores[i] = valores[i].replace("\"", "");
             }
 
-            String k = valores[0];
-            bst.add(k, x);
+            bst.add(valores[0], valores[1]);
         }
 
         MyList<TreeNode<String, String>> listKeys = bst.inOrder();
@@ -198,7 +198,8 @@ public class Reports implements ReportsInterface {
         return songs;
     }
 
-    public ArrayList<String> top7(String di, String df) throws DatosInvalidosException, KeyNullException {
+
+    public ArrayList<String> top7 (String di, String df) throws DatosInvalidosException, KeyNullException {
         if (di == null || df == null || !esFormatoValido(di) || !esFormatoValido(df)) {
             throw new DatosInvalidosException("Datos Inválidos");
         }
@@ -253,6 +254,7 @@ public class Reports implements ReportsInterface {
         return songs;
     }
 
+
     public int cantArtista(String a, String d, String p) throws DatosInvalidosException, KeyNullException {
         if (a == null || d == null || p == null || !esFormatoValido(d)) {
             throw new DatosInvalidosException("Datos Inválidos");
@@ -288,6 +290,7 @@ public class Reports implements ReportsInterface {
         }
     }
 
+
     public int cantCanciones(Double ti, Double tf, String di, String df) throws DatosInvalidosException, KeyNullException {
         if (ti == null || tf == null || di == null || df == null || !esFormatoValido(di) || !esFormatoValido(df)) {
             throw new DatosInvalidosException("Datos Inválidos");
@@ -312,6 +315,8 @@ public class Reports implements ReportsInterface {
 
         return count;
     }
+
+
 
     public boolean esFormatoValido(String fecha) {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
