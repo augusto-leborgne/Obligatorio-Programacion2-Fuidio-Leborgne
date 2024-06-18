@@ -60,72 +60,110 @@ public class Main {
     }
 
     private static void option1(Reports report) {
+        Scanner scanner = new Scanner(System.in);
+        System.out.print("Ingrese el país (código ISO): ");
+        String country = scanner.nextLine();
+        System.out.print("Ingrese la fecha (YYYY-MM-DD): ");
+        String date = scanner.nextLine();
+
         ArrayList<String> top10 = null;
         try {
-            top10 = report.top10("ZA", "2024-01-14");
-        } catch (DatosInvalidosException e) {
-            throw new RuntimeException(e);
-        } catch (KeyNullException e) {
-            throw new RuntimeException(e);
+            top10 = report.top10(country, date);
+        } catch (DatosInvalidosException | KeyNullException e) {
+            System.err.println("Error: " + e.getMessage());
+            return;
         }
-        for (int i = 0; i < top10.size(); i++) {
-            System.out.println(top10.get(i));
+
+        for (String song : top10) {
+            System.out.println(song);
         }
         System.out.println();
     }
 
     private static void option2(Reports report) {
+        Scanner scanner = new Scanner(System.in);
+        System.out.print("Ingrese la fecha (YYYY-MM-DD): ");
+        String date = scanner.nextLine();
+
         ArrayList<String> top5 = null;
         try {
-            top5 = report.top5("2024-01-14");
-        } catch (DatosInvalidosException e) {
-            throw new RuntimeException(e);
-        } catch (KeyNullException e) {
-            throw new RuntimeException(e);
+            top5 = report.top5(date);
+        } catch (DatosInvalidosException | KeyNullException e) {
+            System.err.println("Error: " + e.getMessage());
+            return;
         }
-        for (int i = 0; i < top5.size(); i++) {
-            System.out.println(top5.get(i));
+
+        for (String song : top5) {
+            System.out.println(song);
         }
         System.out.println();
     }
 
-    private static void option3(Reports report){
-        ArrayList<String> top7 = null;
+    private static void option3(Reports report) {
+        Scanner scanner = new Scanner(System.in);
+        System.out.print("Ingrese la fecha de inicio (YYYY-MM-DD): ");
+        String startDate = scanner.nextLine();
+        System.out.print("Ingrese la fecha de fin (YYYY-MM-DD): ");
+        String endDate = scanner.nextLine();
+
+        ArrayList<String> top7Artists = null;
         try {
-            top7 = report.top7("2024-01-09", "2024-01-13");
-        } catch (DatosInvalidosException e) {
-            throw new RuntimeException(e);
-        } catch (KeyNullException e) {
-            throw new RuntimeException(e);
+            top7Artists = report.top7(startDate, endDate);
+        } catch (DatosInvalidosException | KeyNullException e) {
+            System.err.println("Error: " + e.getMessage());
+            return;
         }
-        for (int i = 0; i < top7.size(); i++) {
-            System.out.println(top7.get(i));
+
+        for (String artist : top7Artists) {
+            System.out.println(artist);
         }
         System.out.println();
     }
 
-    private static void option4(Reports report){
-        int c = 0;
+    private static void option4(Reports report) {
+        Scanner scanner = new Scanner(System.in);
+        System.out.print("Ingrese el nombre del artista: ");
+        String artist = scanner.nextLine();
+        System.out.print("Ingrese la fecha (YYYY-MM-DD): ");
+        String date = scanner.nextLine();
+        System.out.print("Ingrese el pais: ");
+        String pais = scanner.nextLine();
+
+
+        int count = 0;
         try {
-            c = report.cantArtista("Travis Scott","2024-01-05", "AE");
-        } catch (KeyNullException e) {
-            throw new RuntimeException(e);
-        } catch (DatosInvalidosException e) {
-            throw new RuntimeException(e);
+            count = report.cantArtista(artist, date,pais);
+        } catch (DatosInvalidosException | KeyNullException e) {
+            System.err.println("Error: " + e.getMessage());
+            return;
         }
-        System.out.println("Travis Scott aparece " + c + " veces en la fecha y país dados.\n");
+
+        System.out.println("El artista " + artist + " aparece " + count + " veces en el top 50 el " + date + ".");
+        System.out.println();
     }
 
-    private static void option5(Reports report)  {
-        int c = 0;
+    private static void option5(Reports report) {
+        Scanner scanner = new Scanner(System.in);
+        System.out.print("Ingrese el rango de tempo mínimo: ");
+        int minTempo = scanner.nextInt();
+        System.out.print("Ingrese el rango de tempo máximo: ");
+        int maxTempo = scanner.nextInt();
+        scanner.nextLine();  // consume the newline
+        System.out.print("Ingrese la fecha de inicio (YYYY-MM-DD): ");
+        String startDate = scanner.nextLine();
+        System.out.print("Ingrese la fecha de fin (YYYY-MM-DD): ");
+        String endDate = scanner.nextLine();
+
+        int count = 0;
         try {
-            c = report.cantCanciones(120.043, 120.047,"2024-01-09", "2024-01-11");
-        } catch (KeyNullException e) {
-            throw new RuntimeException(e);
-        } catch (DatosInvalidosException e) {
-            throw new RuntimeException(e);
+            count = report.cantCanciones((double) minTempo, (double) maxTempo, startDate, endDate);
+        } catch (DatosInvalidosException | KeyNullException e) {
+            System.err.println("Error: " + e.getMessage());
+            return;
         }
-        System.out.println("Hay " + c + " canciones en el rango de tempo y fechas ingresados\n");
-        System.out.println("Hola mundo");
+
+        System.out.println("Hay " + count + " canciones en el rango de tempo " + minTempo + "-" + maxTempo + " entre " + startDate + " y " + endDate + ".");
+        System.out.println();
     }
+}
 }
