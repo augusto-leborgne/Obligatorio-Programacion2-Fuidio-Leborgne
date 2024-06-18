@@ -59,7 +59,7 @@ public class MyHashImpl<K, T> implements MyHash<K, T> {
 	}
 
 	@Override
-	public T get(K key) throws KeyNullException {
+	public T get(K key) throws KeyNullException, KeyNotFound {
 		if (key == null){
 			throw new KeyNullException();
 		}
@@ -74,11 +74,11 @@ public class MyHashImpl<K, T> implements MyHash<K, T> {
 			pos = (pos + 1) % size;
 			if (pos == originalPos) return null;
 		}
-		return null;
+		throw new KeyNotFound("No se encontró ningún elemento con el dato proporcionado");
 	}
 
 	@Override
-	public boolean contains(K key) throws KeyNullException {
+	public boolean contains(K key) throws KeyNullException, KeyNotFound {
 		return get(key) != null;
 	}
 

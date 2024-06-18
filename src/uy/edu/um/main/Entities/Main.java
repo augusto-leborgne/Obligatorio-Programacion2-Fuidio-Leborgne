@@ -145,9 +145,9 @@ public class Main {
     private static void option5(Reports report) {
         Scanner scanner = new Scanner(System.in);
         System.out.print("Ingrese el rango de tempo mínimo: ");
-        int minTempo = scanner.nextInt();
+        double minTempo = scanner.nextInt();
         System.out.print("Ingrese el rango de tempo máximo: ");
-        int maxTempo = scanner.nextInt();
+        double maxTempo = scanner.nextInt();
         scanner.nextLine();  // consume the newline
         System.out.print("Ingrese la fecha de inicio (YYYY-MM-DD): ");
         String startDate = scanner.nextLine();
@@ -156,7 +156,7 @@ public class Main {
 
         int count = 0;
         try {
-            count = report.cantCanciones((double) minTempo, (double) maxTempo, startDate, endDate);
+            count = report.cantCanciones(minTempo, maxTempo, startDate, endDate);
         } catch (DatosInvalidosException | KeyNullException e) {
             System.err.println("Error: " + e.getMessage());
             return;
@@ -165,5 +165,4 @@ public class Main {
         System.out.println("Hay " + count + " canciones en el rango de tempo " + minTempo + "-" + maxTempo + " entre " + startDate + " y " + endDate + ".");
         System.out.println();
     }
-}
 }

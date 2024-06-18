@@ -108,7 +108,7 @@ public class Reports implements ReportsInterface {
 
     public ArrayList<String> top10(String p, String d) throws DatosInvalidosException, KeyNullException {
         if (p == null || d == null || !esFormatoValido(d)){
-            throw new DatosInvalidosException();
+            throw new DatosInvalidosException("Datos Inválidos");
         }
 
         MyHeap<Integer> heap = new MyHeapImpl<>(true);
@@ -145,7 +145,7 @@ public class Reports implements ReportsInterface {
 
     public ArrayList<String> top5(String d) throws DatosInvalidosException, KeyNullException {
         if (d == null || !esFormatoValido(d)){
-            throw new DatosInvalidosException();
+            throw new DatosInvalidosException("Datos Inválidos");
         }
 
         MyHeapImpl<Integer> heap = new MyHeapImpl<>(false);
@@ -190,7 +190,7 @@ public class Reports implements ReportsInterface {
 
     public ArrayList<String> top7(String di, String df) throws DatosInvalidosException, KeyNullException {
         if (di == null || df == null || !esFormatoValido(di) || !esFormatoValido(df)){
-            throw new DatosInvalidosException();
+            throw new DatosInvalidosException("Datos Inválidos");
         }
 
         MyHeapImpl<Integer> heap = new MyHeapImpl<>(false);
@@ -245,7 +245,7 @@ public class Reports implements ReportsInterface {
 
     public int cantArtista(String a, String d, String p) throws DatosInvalidosException, KeyNullException {
         if (a == null || d == null || p == null || !esFormatoValido(d)){
-            throw new DatosInvalidosException();
+            throw new DatosInvalidosException("Datos Inválidos");
         }
 
         MyList<String> listaCanciones = this.hashCancionesFechaPais.get(d).get(p);
@@ -275,7 +275,7 @@ public class Reports implements ReportsInterface {
 
     public int cantCanciones(Double ti, Double tf, String di, String df) throws DatosInvalidosException, KeyNullException {
         if (ti == null || tf == null || di == null || df == null || !esFormatoValido(di) || !esFormatoValido(df)){
-            throw new DatosInvalidosException();
+            throw new DatosInvalidosException("Datos Inválidos");
         }
 
         int count = 0;
