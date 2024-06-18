@@ -27,92 +27,92 @@ public class Reports implements ReportsInterface {
     private MyHash<String, MyList<String>> hashCancionesFecha;
     private MyHash<String, MyHash<Double, MyList<String>>> hashCancionesFechaTempo;
 
-    public Reports(){
-            long startTime = System.currentTimeMillis();
-            this.hashCancionesFechaPais = new MyHashImpl<>();
-            this.hashCancionesFecha = new MyHashImpl<>();
-            this.hashCancionesFechaTempo = new MyHashImpl<>();
+    public Reports() {
+        long startTime = System.currentTimeMillis();
+        this.hashCancionesFechaPais = new MyHashImpl<>();
+        this.hashCancionesFecha = new MyHashImpl<>();
+        this.hashCancionesFechaTempo = new MyHashImpl<>();
 
-            try (BufferedReader in = new BufferedReader(new FileReader(new File("universal_top_spotify_songs.csv")))) {
+        try (BufferedReader in = new BufferedReader(new FileReader(new File("universal_top_spotify_songs.csv")))) {
 
-                int line = 0;
-                for (String x = in.readLine(); x != null; x = in.readLine()) {
-                    line++;
-                    String[] valores = x.split("\",\"");
+            int line = 0;
+            for (String x = in.readLine(); x != null; x = in.readLine()) {
+                line++;
+                String[] valores = x.split("\",\"");
 
-                    for (int i=0; i<valores.length; i++){
-                        valores[i] = valores[i].replace("\"","");
-                    }
+                for (int i = 0; i < valores.length; i++) {
+                    valores[i] = valores[i].replace("\"", "");
+                }
 
-                    if (line != 1) {
-                        MyHash<String, MyList<String>> hashPais = this.hashCancionesFechaPais.get(valores[7]);
-                        MyList<String> listaCancionesFP = new MyLinkedListImpl<>();
-                        MyList<String> listaCancionesF = this.hashCancionesFecha.get(valores[7]);
-                        MyHash<Double, MyList<String>> hashTempo = this.hashCancionesFechaTempo.get(valores[7]);
-                        MyList<String> listaCancionesFT = new MyLinkedListImpl<>();
+                if (line != 1) {
+                    MyHash<String, MyList<String>> hashPais = this.hashCancionesFechaPais.get(valores[7]);
+                    MyList<String> listaCancionesFP = new MyLinkedListImpl<>();
+                    MyList<String> listaCancionesF = this.hashCancionesFecha.get(valores[7]);
+                    MyHash<Double, MyList<String>> hashTempo = this.hashCancionesFechaTempo.get(valores[7]);
+                    MyList<String> listaCancionesFT = new MyLinkedListImpl<>();
 
-                        if(hashPais == null){
-                            hashPais = new MyHashImpl<>();
+                    if (hashPais == null) {
+                        hashPais = new MyHashImpl<>();
+                        listaCancionesFP.add(x);
+                        hashPais.put(valores[6], listaCancionesFP);
+                        this.hashCancionesFechaPais.put(valores[7], hashPais);
+
+                    } else {
+                        listaCancionesFP = hashPais.get(valores[6]);
+
+                        if (listaCancionesFP == null) {
+                            listaCancionesFP = new MyLinkedListImpl<>();
                             listaCancionesFP.add(x);
                             hashPais.put(valores[6], listaCancionesFP);
-                            this.hashCancionesFechaPais.put(valores[7], hashPais);
 
-                        }else{
-                            listaCancionesFP = hashPais.get(valores[6]);
-
-                            if (listaCancionesFP == null){
-                                listaCancionesFP = new MyLinkedListImpl<>();
-                                listaCancionesFP.add(x);
-                                hashPais.put(valores[6], listaCancionesFP);
-
-                            }else{
-                                listaCancionesFP.add(x);
-                            }
+                        } else {
+                            listaCancionesFP.add(x);
                         }
+                    }
 
-                        if(listaCancionesF == null){
-                            listaCancionesF = new MyLinkedListImpl<>();
-                            listaCancionesF.add(x);
-                            this.hashCancionesFecha.put(valores[7], listaCancionesF);
-                        }else{
-                            listaCancionesF.add(x);
-                        }
+                    if (listaCancionesF == null) {
+                        listaCancionesF = new MyLinkedListImpl<>();
+                        listaCancionesF.add(x);
+                        this.hashCancionesFecha.put(valores[7], listaCancionesF);
+                    } else {
+                        listaCancionesF.add(x);
+                    }
 
-                        if(hashTempo == null){
-                            hashTempo = new MyHashImpl<>();
+                    if (hashTempo == null) {
+                        hashTempo = new MyHashImpl<>();
+                        listaCancionesFT.add(x);
+                        hashTempo.put(Double.parseDouble(valores[23]), listaCancionesFT);
+                        this.hashCancionesFechaTempo.put(valores[7], hashTempo);
+
+                    } else {
+                        listaCancionesFT = hashTempo.get(Double.parseDouble(valores[23]));
+
+                        if (listaCancionesFT == null) {
+                            listaCancionesFT = new MyLinkedListImpl<>();
                             listaCancionesFT.add(x);
                             hashTempo.put(Double.parseDouble(valores[23]), listaCancionesFT);
-                            this.hashCancionesFechaTempo.put(valores[7], hashTempo);
-
-                        }else{
-                            listaCancionesFT = hashTempo.get(Double.parseDouble(valores[23]));
-
-                            if(listaCancionesFT == null){
-                                listaCancionesFT = new MyLinkedListImpl<>();
-                                listaCancionesFT.add(x);
-                                hashTempo.put(Double.parseDouble(valores[23]), listaCancionesFT);
-                            }else{
-                                listaCancionesFT.add(x);
-                            }
+                        } else {
+                            listaCancionesFT.add(x);
                         }
                     }
                 }
-
-            } catch (IOException e) {
-                System.out.println("File I/O error!");
-                e.printStackTrace();
-            } catch (KeyNullException e) {
-                System.out.println("Key Null ERROR!");
-                e.printStackTrace();
             }
-            long endTime = System.currentTimeMillis();
-            long totalTime = endTime - startTime;
 
-            System.out.println("Tiempo total de ejecución en milisegundos Carga de datos: " + totalTime);
+        } catch (IOException e) {
+            System.out.println("File I/O error!");
+            e.printStackTrace();
+        } catch (KeyNullException e) {
+            System.out.println("Key Null ERROR!");
+            e.printStackTrace();
+        }
+        long endTime = System.currentTimeMillis();
+        long totalTime = endTime - startTime;
+
+        System.out.println("Tiempo total de ejecución en milisegundos Carga de datos: " + totalTime);
     }
 
     public ArrayList<String> top10(String p, String d) throws DatosInvalidosException, KeyNullException {
-        if (p == null || d == null || !esFormatoValido(d)){
+        if (p == null || d == null || !esFormatoValido(d)) {
             throw new DatosInvalidosException("Datos Inválidos");
         }
 
@@ -147,14 +147,14 @@ public class Reports implements ReportsInterface {
             }
 
             return songs;
-        }catch (NullPointerException e){
+        } catch (NullPointerException e) {
             System.out.println("No se han encontrado resultados con los datos ingresados");
             return null;
         }
     }
 
     public ArrayList<String> top5(String d) throws DatosInvalidosException, KeyNullException {
-        if (d == null || !esFormatoValido(d)){
+        if (d == null || !esFormatoValido(d)) {
             throw new DatosInvalidosException("Datos Inválidos");
         }
 
@@ -199,7 +199,7 @@ public class Reports implements ReportsInterface {
     }
 
     public ArrayList<String> top7(String di, String df) throws DatosInvalidosException, KeyNullException {
-        if (di == null || df == null || !esFormatoValido(di) || !esFormatoValido(df)){
+        if (di == null || df == null || !esFormatoValido(di) || !esFormatoValido(df)) {
             throw new DatosInvalidosException("Datos Inválidos");
         }
 
@@ -209,17 +209,17 @@ public class Reports implements ReportsInterface {
 
         DateTimeFormatter formato = DateTimeFormatter.ofPattern("yyyy-MM-dd");
 
-        for (LocalDate fecha = LocalDate.parse(di, formato); !fecha.isAfter(LocalDate.parse(df, formato)); fecha = fecha.plusDays(1)){
+        for (LocalDate fecha = LocalDate.parse(di, formato); !fecha.isAfter(LocalDate.parse(df, formato)); fecha = fecha.plusDays(1)) {
             String fechaString = fecha.toString();
             MyList<String> listaCanciones = this.hashCancionesFecha.get(fechaString);
 
-            if (listaCanciones != null){
-                for (Node<String> nodo = listaCanciones.getFirst(); nodo != null; nodo = nodo.getNext()){
+            if (listaCanciones != null) {
+                for (Node<String> nodo = listaCanciones.getFirst(); nodo != null; nodo = nodo.getNext()) {
                     String x = nodo.getValue();
                     String[] valores = x.split("\",\"");
 
-                    for (int i=0; i<valores.length; i++){
-                        valores[i] = valores[i].replace("\"","");
+                    for (int i = 0; i < valores.length; i++) {
+                        valores[i] = valores[i].replace("\"", "");
                     }
 
                     String[] artistas = valores[2].split(", ");
@@ -231,7 +231,7 @@ public class Reports implements ReportsInterface {
         }
 
         MyList<TreeNode<String, String>> nodosArtistas = bst.inOrder();
-        for(Node<TreeNode<String, String>> temp = nodosArtistas.getFirst(); temp != nodosArtistas.getLast(); temp = temp.getNext()){
+        for (Node<TreeNode<String, String>> temp = nodosArtistas.getFirst(); temp != nodosArtistas.getLast(); temp = temp.getNext()) {
             int c = temp.getValue().getCount();
             String a = temp.getValue().getKey();
             hash.put(c, a);
@@ -254,7 +254,7 @@ public class Reports implements ReportsInterface {
     }
 
     public int cantArtista(String a, String d, String p) throws DatosInvalidosException, KeyNullException {
-        if (a == null || d == null || p == null || !esFormatoValido(d)){
+        if (a == null || d == null || p == null || !esFormatoValido(d)) {
             throw new DatosInvalidosException("Datos Inválidos");
         }
         int count = 0;
@@ -282,14 +282,14 @@ public class Reports implements ReportsInterface {
             }
 
             return count;
-        }catch (NullPointerException e){
+        } catch (NullPointerException e) {
             System.out.println("No se han encontrado resultados con los datos ingresados");
             return -1;
         }
     }
 
     public int cantCanciones(Double ti, Double tf, String di, String df) throws DatosInvalidosException, KeyNullException {
-        if (ti == null || tf == null || di == null || df == null || !esFormatoValido(di) || !esFormatoValido(df)){
+        if (ti == null || tf == null || di == null || df == null || !esFormatoValido(di) || !esFormatoValido(df)) {
             throw new DatosInvalidosException("Datos Inválidos");
         }
 
@@ -298,14 +298,15 @@ public class Reports implements ReportsInterface {
 
         for (LocalDate fecha = LocalDate.parse(di, formato); !fecha.isAfter(LocalDate.parse(df, formato)); fecha = fecha.plusDays(1)) {
             String fechaString = fecha.toString();
-            for (Double t = ti; t <= tf; t = t + 0.001){
+            for (Double t = ti; t <= tf; t = t + 0.001) {
 
                 try {
                     MyList<String> listaCanciones = this.hashCancionesFechaTempo.get(fechaString).get(t);
                     if (listaCanciones != null) {
                         count = count + listaCanciones.size();
                     }
-                }catch (NullPointerException ignored){}
+                } catch (NullPointerException ignored) {
+                }
             }
         }
 

@@ -75,7 +75,7 @@ public class Main {
             return;
         }
 
-        if(top10 != null) {
+        if (top10 != null) {
             for (String song : top10) {
                 System.out.println(song);
             }
@@ -85,6 +85,7 @@ public class Main {
         long totalTime = endTime - startTime;
 
         System.out.println("Tiempo total de ejecución en milisegundos op1: " + totalTime);
+        System.out.println();
 
     }
 
@@ -108,6 +109,7 @@ public class Main {
         long endTime = System.currentTimeMillis();
         long totalTime = endTime - startTime;
 
+        System.out.println();
         System.out.println("Tiempo total de ejecución en milisegundos op2: " + totalTime);
         System.out.println();
     }
@@ -136,6 +138,7 @@ public class Main {
         long totalTime = endTime - startTime;
 
         System.out.println("Tiempo total de ejecución en milisegundos op3: " + totalTime);
+        System.out.println();
     }
 
     private static void option4(Reports report) {
@@ -151,8 +154,8 @@ public class Main {
         int count = 0;
         long startTime = System.currentTimeMillis();
         try {
-            count = report.cantArtista(artist, date,pais);
-        } catch (DatosInvalidosException | KeyNullException  e) {
+            count = report.cantArtista(artist, date, pais);
+        } catch (DatosInvalidosException | KeyNullException e) {
             System.err.println("Error: " + e.getMessage());
             return;
         }
@@ -161,6 +164,7 @@ public class Main {
         long endTime = System.currentTimeMillis();
         long totalTime = endTime - startTime;
 
+        System.out.println();
         System.out.println("Tiempo total de ejecución en milisegundos op4: " + totalTime);
         System.out.println();
     }
@@ -181,7 +185,7 @@ public class Main {
         long startTime = System.currentTimeMillis();
         try {
             count = report.cantCanciones(minTempo, maxTempo, startDate, endDate);
-        } catch (DatosInvalidosException | KeyNullException  e) {
+        } catch (DatosInvalidosException | KeyNullException e) {
             System.err.println("Error: " + e.getMessage());
             return;
         }
@@ -190,6 +194,7 @@ public class Main {
         long endTime = System.currentTimeMillis();
         long totalTime = endTime - startTime;
 
+        System.out.println();
         System.out.println("Tiempo total de ejecución en milisegundos op5: " + totalTime);
         System.out.println();
     }

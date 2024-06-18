@@ -147,8 +147,8 @@ public class MyLinkedListImpl<T> implements MyList<T>, MyQueue<T>, MyStack<T> {
 
             } else { // resto de los casos
 
-                    beforeSearchValue.setNext(searchValue.getNext());
-                    searchValue.setNext(null);
+                beforeSearchValue.setNext(searchValue.getNext());
+                searchValue.setNext(null);
 
             }
 
@@ -189,10 +189,14 @@ public class MyLinkedListImpl<T> implements MyList<T>, MyQueue<T>, MyStack<T> {
     }
 
     @Override
-    public Node<T> getFirst(){return this.first;}
+    public Node<T> getFirst() {
+        return this.first;
+    }
 
     @Override
-    public Node<T> getLast(){return this.last;}
+    public Node<T> getLast() {
+        return this.last;
+    }
 
     // Operaciones particulares a Queue
 

@@ -2,7 +2,7 @@ package uy.edu.um.adt.hash;
 
 import java.util.Objects;
 
-public class HashNode<K,T> {
+public class HashNode<K, T> {
     private K key;
     private T data;
     private boolean borrado = false;

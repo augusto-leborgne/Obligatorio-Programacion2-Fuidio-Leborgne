@@ -1,5 +1,5 @@
 /**
- * 
+ *
  */
 package uy.edu.um.adt.binarytree;
 
@@ -9,109 +9,109 @@ import uy.edu.um.adt.linkedlist.MyList;
 public class MySearchBinaryTreeImpl<K extends Comparable<K>, V> implements
         MySearchBinaryTree<K, V> {
 
-	private TreeNode<K, V> root;
+    private TreeNode<K, V> root;
 
-	@Override
-	public void add(K key, V value) {
-		TreeNode<K, V> elementToAdd = new TreeNode<>(key, value);
+    @Override
+    public void add(K key, V value) {
+        TreeNode<K, V> elementToAdd = new TreeNode<>(key, value);
 
-		if (root == null) {
+        if (root == null) {
 
-			root = elementToAdd;
+            root = elementToAdd;
 
-		} else {
+        } else {
 
-			root.add(key, value);
+            root.add(key, value);
 
-		}
-	}
-	
-	public TreeNode<K, V> find(K key) {
+        }
+    }
 
-		return find(key, root);
-	}
+    public TreeNode<K, V> find(K key) {
 
-	private TreeNode<K, V> find(K keyToSearch, TreeNode<K, V> root) {
-		TreeNode<K, V> node = null;
-		
-		if (root != null) {
+        return find(key, root);
+    }
 
-			int nValue = keyToSearch.compareTo(root.getKey());
+    private TreeNode<K, V> find(K keyToSearch, TreeNode<K, V> root) {
+        TreeNode<K, V> node = null;
 
-			if (nValue == 0) {
-				
-				node = root;
-				
-			} else if (nValue > 0) {
-				
-				node = find(keyToSearch, root.getRight());
-				
-			} else {
+        if (root != null) {
 
-				node = find(keyToSearch, root.getLeft());
+            int nValue = keyToSearch.compareTo(root.getKey());
 
-			}
+            if (nValue == 0) {
 
-		}
+                node = root;
 
-		return node;
-	}
+            } else if (nValue > 0) {
 
-	public boolean contains(K key) {
+                node = find(keyToSearch, root.getRight());
 
-		return contains(key, root);
-	}
+            } else {
 
-	private boolean contains(K keyToSearch, TreeNode<K, V> root) {
-		boolean contains = false;
-		
-		if (root != null) {
+                node = find(keyToSearch, root.getLeft());
 
-			int nValue = keyToSearch.compareTo(root.getKey());
+            }
 
-			if (nValue == 0) {
+        }
 
-				contains = true;
-				
-			} else if (nValue > 0) {
+        return node;
+    }
 
-				contains = contains(keyToSearch, root.getRight());
-				
-			} else {
+    public boolean contains(K key) {
 
-				contains = contains(keyToSearch, root.getLeft());
-				
-			}
+        return contains(key, root);
+    }
 
-		}
+    private boolean contains(K keyToSearch, TreeNode<K, V> root) {
+        boolean contains = false;
 
-		return contains;
-	}
+        if (root != null) {
 
+            int nValue = keyToSearch.compareTo(root.getKey());
 
-	@Override
-	public void remove(K key) {
+            if (nValue == 0) {
 
-		if (root != null) {
+                contains = true;
 
-			root = root.remove(key);
+            } else if (nValue > 0) {
 
-		}
+                contains = contains(keyToSearch, root.getRight());
 
-	}
+            } else {
 
-	@Override
-	public MyList<TreeNode<K, V>> inOrder() {
-		MyList<TreeNode<K, V>> inOrderTraverse = new MyLinkedListImpl<>();
+                contains = contains(keyToSearch, root.getLeft());
 
-		if (root != null) {
+            }
+
+        }
+
+        return contains;
+    }
 
 
-			root.inOrderTraverse(inOrderTraverse);
+    @Override
+    public void remove(K key) {
 
-		}
+        if (root != null) {
 
-		return inOrderTraverse;
-	}
+            root = root.remove(key);
+
+        }
+
+    }
+
+    @Override
+    public MyList<TreeNode<K, V>> inOrder() {
+        MyList<TreeNode<K, V>> inOrderTraverse = new MyLinkedListImpl<>();
+
+        if (root != null) {
+
+
+            root.inOrderTraverse(inOrderTraverse);
+
+        }
+
+        return inOrderTraverse;
+    }
 
 }
