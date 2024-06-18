@@ -295,7 +295,7 @@ public class Reports implements ReportsInterface {
         return count;
     }
 
-    public static boolean esFormatoValido(String fecha) {
+    public boolean esFormatoValido(String fecha) {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
         try {
             LocalDate.parse(fecha, formatter);
