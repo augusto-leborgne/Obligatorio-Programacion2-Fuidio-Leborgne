@@ -17,6 +17,8 @@ import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
+import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
@@ -25,15 +27,16 @@ import java.util.ArrayList;
 public class Reports implements ReportsInterface {
     private MyHash<String, MyHash<String, MyList<String>>> hashCancionesFechaPais;
     private MyHash<String, MyList<String>> hashCancionesFecha;
-    private MyHash<String, MyHash<Double, MyList<String>>> hashCancionesFechaTempo;
+    private MyHash<String, MyHash<BigDecimal, MyList<String>>> hashCancionesFechaTempo;
 
     public Reports() {
         long startTime = System.currentTimeMillis();
+
         this.hashCancionesFechaPais = new MyHashImpl<>();
         this.hashCancionesFecha = new MyHashImpl<>();
         this.hashCancionesFechaTempo = new MyHashImpl<>();
 
-        try (BufferedReader in = new BufferedReader(new FileReader(new File("universal_top_spotify_songs.csv")))) {
+        try (BufferedReader in = new BufferedReader(new FileReader("universal_top_spotify_songs.csv"))) {
 
             int line = 0;
             for (String x = in.readLine(); x != null; x = in.readLine()) {
@@ -48,7 +51,7 @@ public class Reports implements ReportsInterface {
                     MyHash<String, MyList<String>> hashPais = this.hashCancionesFechaPais.get(valores[7]);
                     MyList<String> listaCancionesFP = new MyLinkedListImpl<>();
                     MyList<String> listaCancionesF = this.hashCancionesFecha.get(valores[7]);
-                    MyHash<Double, MyList<String>> hashTempo = this.hashCancionesFechaTempo.get(valores[7]);
+                    MyHash<BigDecimal, MyList<String>> hashTempo = this.hashCancionesFechaTempo.get(valores[7]);
                     MyList<String> listaCancionesFT = new MyLinkedListImpl<>();
 
                     if (hashPais == null) {
@@ -80,19 +83,22 @@ public class Reports implements ReportsInterface {
 
                     if (hashTempo == null) {
                         hashTempo = new MyHashImpl<>();
-                        listaCancionesFT.add(x);
-                        hashTempo.put(Double.parseDouble(valores[23]), listaCancionesFT);
+                        listaCancionesFT.add(valores[0]);
+                        hashTempo.put(new BigDecimal(valores[23]), listaCancionesFT);
                         this.hashCancionesFechaTempo.put(valores[7], hashTempo);
 
                     } else {
-                        listaCancionesFT = hashTempo.get(Double.parseDouble(valores[23]));
+                        listaCancionesFT = hashTempo.get(new BigDecimal(valores[23]));
 
                         if (listaCancionesFT == null) {
                             listaCancionesFT = new MyLinkedListImpl<>();
-                            listaCancionesFT.add(x);
-                            hashTempo.put(Double.parseDouble(valores[23]), listaCancionesFT);
+                            listaCancionesFT.add(valores[0]);
+                            hashTempo.put(new BigDecimal(valores[23]), listaCancionesFT);
+
                         } else {
-                            listaCancionesFT.add(x);
+                            if(!listaCancionesFT.contains(valores[0])) {
+                                listaCancionesFT.add(valores[0]);
+                            }
                         }
                     }
                 }
@@ -108,7 +114,7 @@ public class Reports implements ReportsInterface {
         long endTime = System.currentTimeMillis();
         long totalTime = endTime - startTime;
 
-        System.out.println("Tiempo total de ejecución (en milisegundos) para carga de datos: " + totalTime);
+        System.out.println("Tiempo total de ejecución (en milisegundos) para carga de datos: " + totalTime + "\n");
     }
 
     public ArrayList<String> top10(String d, String p) throws DatosInvalidosException, KeyNullException {
@@ -291,29 +297,33 @@ public class Reports implements ReportsInterface {
     }
 
 
-    public int cantCanciones(Double ti, Double tf, String di, String df) throws DatosInvalidosException, KeyNullException {
+    public int cantCanciones(BigDecimal ti, BigDecimal tf, String di, String df) throws DatosInvalidosException, KeyNullException {
         if (ti == null || tf == null || di == null || df == null || !esFormatoValido(di) || !esFormatoValido(df)) {
             throw new DatosInvalidosException("Datos Inválidos");
         }
 
-        int count = 0;
+        MySearchBinaryTree<String, String> bst = new MySearchBinaryTreeImpl<>();
+
         DateTimeFormatter formato = DateTimeFormatter.ofPattern("yyyy-MM-dd");
 
         for (LocalDate fecha = LocalDate.parse(di, formato); !fecha.isAfter(LocalDate.parse(df, formato)); fecha = fecha.plusDays(1)) {
             String fechaString = fecha.toString();
-            for (Double t = ti; t <= tf; t = t + 0.001) {
 
-                try {
+            if(this.hashCancionesFecha.get(fechaString) != null) {
+
+                for (BigDecimal t = ti; t.compareTo(tf) <= 0; t = t.add(BigDecimal.valueOf(0.001)).setScale(3, RoundingMode.HALF_UP)) {
                     MyList<String> listaCanciones = this.hashCancionesFechaTempo.get(fechaString).get(t);
+
                     if (listaCanciones != null) {
-                        count = count + listaCanciones.size();
+                        for (Node<String> node = listaCanciones.getFirst(); node != null; node = node.getNext()) {
+                            bst.add(node.getValue(), node.getValue());
+                        }
                     }
-                } catch (NullPointerException ignored) {
                 }
             }
         }
 
-        return count;
+        return bst.inOrder().size();
     }
 
 

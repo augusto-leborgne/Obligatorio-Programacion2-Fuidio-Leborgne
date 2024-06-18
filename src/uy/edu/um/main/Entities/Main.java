@@ -4,6 +4,8 @@ package uy.edu.um.main.Entities;
 import uy.edu.um.adt.hash.KeyNullException;
 import uy.edu.um.main.Exceptions.DatosInvalidosException;
 
+import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -169,20 +171,19 @@ public class Main {
 
     private static void oCantCanciones(Reports report) {
         Scanner scanner = new Scanner(System.in);
-        System.out.print("Ingrese el rango de tempo mínimo: ");
-        double minTempo = scanner.nextDouble();
-        System.out.print("Ingrese el rango de tempo máximo: ");
-        double maxTempo = scanner.nextDouble();
+        System.out.print("Ingrese el rango de tempo mínimo (se redondea a 3 cifras decimales): ");
+        BigDecimal minTempo = scanner.nextBigDecimal().setScale(3, RoundingMode.HALF_UP);
+        System.out.print("Ingrese el rango de tempo máximo (se redondea a 3 cifras decimales): ");
+        BigDecimal maxTempo = scanner.nextBigDecimal().setScale(3, RoundingMode.HALF_UP);
         scanner.nextLine();
         System.out.print("Ingrese la fecha de inicio (YYYY-MM-DD): ");
         String startDate = scanner.nextLine();
         System.out.print("Ingrese la fecha de fin (YYYY-MM-DD): ");
         String endDate = scanner.nextLine();
 
-        int count = 0;
         long startTime = System.currentTimeMillis();
         try {
-            count = report.cantCanciones(minTempo, maxTempo, startDate, endDate);
+            int count = report.cantCanciones(minTempo, maxTempo, startDate, endDate);
             if (count != -1) {
                 System.out.println("\nHay " + count + " canciones en el rango de tempo " + minTempo + "-" + maxTempo + " entre " + startDate + " y " + endDate + ".");
             }
