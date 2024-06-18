@@ -3,6 +3,7 @@ package uy.edu.um.main.Entities;
 import uy.edu.um.adt.binarytree.MySearchBinaryTree;
 import uy.edu.um.adt.binarytree.MySearchBinaryTreeImpl;
 import uy.edu.um.adt.binarytree.TreeNode;
+import uy.edu.um.adt.hash.KeyNotFound;
 import uy.edu.um.adt.hash.KeyNullException;
 import uy.edu.um.adt.hash.MyHash;
 import uy.edu.um.adt.hash.MyHashImpl;
@@ -103,10 +104,12 @@ public class Reports implements ReportsInterface {
             } catch (KeyNullException e) {
                 System.out.println("Key Null ERROR!");
                 e.printStackTrace();
+            } catch (KeyNotFound e) {
+                System.out.println("Key Not Found ERROR!");
             }
     }
 
-    public ArrayList<String> top10(String p, String d) throws DatosInvalidosException, KeyNullException {
+    public ArrayList<String> top10(String p, String d) throws DatosInvalidosException, KeyNullException, KeyNotFound {
         if (p == null || d == null || !esFormatoValido(d)){
             throw new DatosInvalidosException("Datos Inválidos");
         }
@@ -143,7 +146,7 @@ public class Reports implements ReportsInterface {
         return songs;
     }
 
-    public ArrayList<String> top5(String d) throws DatosInvalidosException, KeyNullException {
+    public ArrayList<String> top5(String d) throws DatosInvalidosException, KeyNullException, KeyNotFound {
         if (d == null || !esFormatoValido(d)){
             throw new DatosInvalidosException("Datos Inválidos");
         }
@@ -188,7 +191,7 @@ public class Reports implements ReportsInterface {
         return songs;
     }
 
-    public ArrayList<String> top7(String di, String df) throws DatosInvalidosException, KeyNullException {
+    public ArrayList<String> top7(String di, String df) throws DatosInvalidosException, KeyNullException, KeyNotFound {
         if (di == null || df == null || !esFormatoValido(di) || !esFormatoValido(df)){
             throw new DatosInvalidosException("Datos Inválidos");
         }
@@ -243,7 +246,7 @@ public class Reports implements ReportsInterface {
         return songs;
     }
 
-    public int cantArtista(String a, String d, String p) throws DatosInvalidosException, KeyNullException {
+    public int cantArtista(String a, String d, String p) throws DatosInvalidosException, KeyNullException, KeyNotFound {
         if (a == null || d == null || p == null || !esFormatoValido(d)){
             throw new DatosInvalidosException("Datos Inválidos");
         }
@@ -273,7 +276,7 @@ public class Reports implements ReportsInterface {
         return count;
     }
 
-    public int cantCanciones(Double ti, Double tf, String di, String df) throws DatosInvalidosException, KeyNullException {
+    public int cantCanciones(Double ti, Double tf, String di, String df) throws DatosInvalidosException, KeyNullException, KeyNotFound {
         if (ti == null || tf == null || di == null || df == null || !esFormatoValido(di) || !esFormatoValido(df)){
             throw new DatosInvalidosException("Datos Inválidos");
         }

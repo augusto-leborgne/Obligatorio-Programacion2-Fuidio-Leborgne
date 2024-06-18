@@ -1,6 +1,7 @@
 package uy.edu.um.main.Entities;
 
 
+import uy.edu.um.adt.hash.KeyNotFound;
 import uy.edu.um.adt.hash.KeyNullException;
 import uy.edu.um.main.Exceptions.DatosInvalidosException;
 
@@ -69,7 +70,7 @@ public class Main {
         ArrayList<String> top10 = null;
         try {
             top10 = report.top10(country, date);
-        } catch (DatosInvalidosException | KeyNullException e) {
+        } catch (DatosInvalidosException | KeyNullException | KeyNotFound e) {
             System.err.println("Error: " + e.getMessage());
             return;
         }
@@ -88,7 +89,7 @@ public class Main {
         ArrayList<String> top5 = null;
         try {
             top5 = report.top5(date);
-        } catch (DatosInvalidosException | KeyNullException e) {
+        } catch (DatosInvalidosException | KeyNullException | KeyNotFound e) {
             System.err.println("Error: " + e.getMessage());
             return;
         }
@@ -109,7 +110,7 @@ public class Main {
         ArrayList<String> top7Artists = null;
         try {
             top7Artists = report.top7(startDate, endDate);
-        } catch (DatosInvalidosException | KeyNullException e) {
+        } catch (DatosInvalidosException | KeyNullException | KeyNotFound e) {
             System.err.println("Error: " + e.getMessage());
             return;
         }
@@ -133,7 +134,7 @@ public class Main {
         int count = 0;
         try {
             count = report.cantArtista(artist, date,pais);
-        } catch (DatosInvalidosException | KeyNullException e) {
+        } catch (DatosInvalidosException | KeyNullException | KeyNotFound e) {
             System.err.println("Error: " + e.getMessage());
             return;
         }
@@ -157,7 +158,7 @@ public class Main {
         int count = 0;
         try {
             count = report.cantCanciones(minTempo, maxTempo, startDate, endDate);
-        } catch (DatosInvalidosException | KeyNullException e) {
+        } catch (DatosInvalidosException | KeyNullException | KeyNotFound e) {
             System.err.println("Error: " + e.getMessage());
             return;
         }
