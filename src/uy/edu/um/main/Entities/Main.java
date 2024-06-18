@@ -153,7 +153,7 @@ public class Main {
         try {
             int count = report.cantArtista(artista, fecha, pais);
             if (count != -1) {
-                System.out.println("El artista " + artista + " aparece " + count + " veces en el top 50 del país " + pais + " el " + fecha + ".");
+                System.out.println("\nEl artista " + artista + " aparece " + count + " veces en el top 50 del país " + pais + " el " + fecha + ".");
 
             }
 
@@ -184,7 +184,7 @@ public class Main {
         try {
             count = report.cantCanciones(minTempo, maxTempo, startDate, endDate);
             if (count != -1) {
-                System.out.println("Hay " + count + " canciones en el rango de tempo " + minTempo + "-" + maxTempo + " entre " + startDate + " y " + endDate + ".");
+                System.out.println("\nHay " + count + " canciones en el rango de tempo " + minTempo + "-" + maxTempo + " entre " + startDate + " y " + endDate + ".");
             }
 
             long endTime = System.currentTimeMillis();
