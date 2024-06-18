@@ -130,7 +130,7 @@ public class Reports implements ReportsInterface {
                 }
 
                 int k = Integer.parseInt(valores[3]);
-                hash.put(k, nodeTemp.getValue());
+                hash.put(k, valores[1]);
                 heap.insert(k);
             }
 
