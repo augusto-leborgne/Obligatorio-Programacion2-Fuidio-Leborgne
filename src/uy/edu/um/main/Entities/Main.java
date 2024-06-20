@@ -216,9 +216,9 @@ public class Main {
 
         try {
             Scanner scanner = new Scanner(System.in);
-            System.out.print("Ingrese el rango de tempo mínimo (se redondea a 3 cifras decimales): ");
+            System.out.print("Ingrese un tempo mínimo mayor a 0 (se redondea a 3 cifras decimales): ");
             BigDecimal minTempo = scanner.nextBigDecimal().setScale(3, RoundingMode.HALF_UP);
-            System.out.print("Ingrese el rango de tempo máximo (se redondea a 3 cifras decimales): ");
+            System.out.print("Ingrese un tempo máximo mayor al tempo mínimo (se redondea a 3 cifras decimales): ");
             BigDecimal maxTempo = scanner.nextBigDecimal().setScale(3, RoundingMode.HALF_UP);
             scanner.nextLine();
             System.out.print("Ingrese la fecha de inicio (YYYY-MM-DD): ");
