@@ -285,7 +285,7 @@ public class Reports implements ReportsInterface {
                     String[] artistas = valores[2].split(", ");
                     for (int i = 0; i < artistas.length; i++) {
                         artistas[i] = artistas[i].replace("\"", "");
-                        if (artistas[i].equals(a)) {
+                        if (artistas[i].equalsIgnoreCase(a)) {
                             count++;
                         }
                     }
