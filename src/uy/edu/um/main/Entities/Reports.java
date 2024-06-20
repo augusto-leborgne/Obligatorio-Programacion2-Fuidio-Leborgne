@@ -301,7 +301,7 @@ public class Reports implements ReportsInterface {
 
 
     public int cantCanciones(BigDecimal ti, BigDecimal tf, String di, String df) throws DatosInvalidosException, KeyNullException {
-        if (ti == null || tf == null || di == null || df == null || ti.compareTo(new BigDecimal("0.000")) >= 0 || tf.compareTo(new BigDecimal("0.000")) >= 0 || ti.compareTo(tf) > 0 || !esFormatoValido(di) || !esFormatoValido(df)) {
+        if (ti == null || tf == null || di == null || df == null || ti.compareTo(new BigDecimal("0.000")) <= 0 || tf.compareTo(new BigDecimal("0.000")) <= 0 || ti.compareTo(tf) > 0 || !esFormatoValido(di) || !esFormatoValido(df)) {
             throw new DatosInvalidosException("Datos Inválidos");
         }
 
