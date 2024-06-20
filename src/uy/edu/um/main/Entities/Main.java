@@ -7,6 +7,7 @@ import uy.edu.um.main.Exceptions.DatosInvalidosException;
 import java.math.BigDecimal;
 import java.math.RoundingMode;
 import java.util.ArrayList;
+import java.util.InputMismatchException;
 import java.util.Scanner;
 
 public class Main {
@@ -213,19 +214,20 @@ public class Main {
         runtime.gc();
         long memoryBefore = runtime.totalMemory() - runtime.freeMemory();
 
-        Scanner scanner = new Scanner(System.in);
-        System.out.print("Ingrese el rango de tempo mínimo (se redondea a 3 cifras decimales): ");
-        BigDecimal minTempo = scanner.nextBigDecimal().setScale(3, RoundingMode.HALF_UP);
-        System.out.print("Ingrese el rango de tempo máximo (se redondea a 3 cifras decimales): ");
-        BigDecimal maxTempo = scanner.nextBigDecimal().setScale(3, RoundingMode.HALF_UP);
-        scanner.nextLine();
-        System.out.print("Ingrese la fecha de inicio (YYYY-MM-DD): ");
-        String startDate = scanner.nextLine();
-        System.out.print("Ingrese la fecha de fin (YYYY-MM-DD): ");
-        String endDate = scanner.nextLine();
-
-        long startTime = System.currentTimeMillis();
         try {
+            Scanner scanner = new Scanner(System.in);
+            System.out.print("Ingrese el rango de tempo mínimo (se redondea a 3 cifras decimales): ");
+            BigDecimal minTempo = scanner.nextBigDecimal().setScale(3, RoundingMode.HALF_UP);
+            System.out.print("Ingrese el rango de tempo máximo (se redondea a 3 cifras decimales): ");
+            BigDecimal maxTempo = scanner.nextBigDecimal().setScale(3, RoundingMode.HALF_UP);
+            scanner.nextLine();
+            System.out.print("Ingrese la fecha de inicio (YYYY-MM-DD): ");
+            String startDate = scanner.nextLine();
+            System.out.print("Ingrese la fecha de fin (YYYY-MM-DD): ");
+            String endDate = scanner.nextLine();
+
+            long startTime = System.currentTimeMillis();
+
             int count = report.cantCanciones(minTempo, maxTempo, startDate, endDate);
             if (count != -1) {
                 System.out.println("\nHay " + count + " canciones en el rango de tempo " + minTempo + "-" + maxTempo + " entre " + startDate + " y " + endDate + ".");
@@ -239,24 +241,13 @@ public class Main {
 
         } catch (DatosInvalidosException | KeyNullException e) {
             System.err.println("Error: " + e.getMessage() + "\n");
+        } catch (InputMismatchException e){
+            System.err.println("Error: Datos Invalidos\n");
         }
 
         long memoryAfter = runtime.totalMemory() - runtime.freeMemory();
         long memoryUsed = memoryAfter - memoryBefore;
 
         System.out.println("Memoria utilizada para operación: " + memoryUsed + " bytes");
-    }
-
-    public void MamoriaUsada(int k){
-
-        Runtime runtime = Runtime.getRuntime();
-        runtime.gc();
-        long memoryBefore = runtime.totalMemory() - runtime.freeMemory();
-
-        // Llamar al método que queremos medir
-        long memoryAfter = runtime.totalMemory() - runtime.freeMemory();
-        long memoryUsed = memoryAfter - memoryBefore;
-
-        System.out.println("Memoria utilizada: " + memoryUsed + " bytes");
     }
 }

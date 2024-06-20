@@ -14,7 +14,6 @@ import uy.edu.um.adt.linkedlist.Node;
 import uy.edu.um.main.Exceptions.DatosInvalidosException;
 
 import java.io.BufferedReader;
-import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
 import java.math.BigDecimal;
@@ -51,6 +50,8 @@ public class Reports implements ReportsInterface {
                 }
 
                 if (line != 1) {
+                    BigDecimal tempo = new BigDecimal(valores[23]).setScale(3, RoundingMode.HALF_UP);
+
                     MyHash<String, MyList<String>> hashPais = this.hashCancionesFechaPais.get(valores[7]);
                     MyList<String> listaCancionesFP = new MyLinkedListImpl<>();
                     MyList<String> listaCancionesF = this.hashCancionesFecha.get(valores[7]);
@@ -87,21 +88,19 @@ public class Reports implements ReportsInterface {
                     if (hashTempo == null) {
                         hashTempo = new MyHashImpl<>();
                         listaCancionesFT.add(valores[0]);
-                        hashTempo.put(new BigDecimal(valores[23]), listaCancionesFT);
+                        hashTempo.put(tempo, listaCancionesFT);
                         this.hashCancionesFechaTempo.put(valores[7], hashTempo);
 
                     } else {
-                        listaCancionesFT = hashTempo.get(new BigDecimal(valores[23]));
+                        listaCancionesFT = hashTempo.get(tempo);
 
                         if (listaCancionesFT == null) {
                             listaCancionesFT = new MyLinkedListImpl<>();
                             listaCancionesFT.add(valores[0]);
-                            hashTempo.put(new BigDecimal(valores[23]), listaCancionesFT);
+                            hashTempo.put(tempo, listaCancionesFT);
 
                         } else {
-                            if(!listaCancionesFT.contains(valores[0])) {
-                                listaCancionesFT.add(valores[0]);
-                            }
+                            listaCancionesFT.add(valores[0]);
                         }
                     }
                 }
