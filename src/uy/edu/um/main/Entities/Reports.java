@@ -30,6 +30,9 @@ public class Reports implements ReportsInterface {
     private MyHash<String, MyHash<BigDecimal, MyList<String>>> hashCancionesFechaTempo;
 
     public Reports() {
+        Runtime runtime = Runtime.getRuntime();
+        runtime.gc();
+        long memoryBefore = runtime.totalMemory() - runtime.freeMemory();
         long startTime = System.currentTimeMillis();
 
         this.hashCancionesFechaPais = new MyHashImpl<>();
@@ -115,6 +118,11 @@ public class Reports implements ReportsInterface {
         long totalTime = endTime - startTime;
 
         System.out.println("\nTiempo total de ejecución (en milisegundos) para carga de datos: " + totalTime + "\n");
+
+        long memoryAfter = runtime.totalMemory() - runtime.freeMemory();
+        long memoryUsed = memoryAfter - memoryBefore;
+
+        System.out.println("Memoria utilizada para carga de datos: " + memoryUsed + " bytes");
     }
 
     public ArrayList<String> top10(String d, String p) throws DatosInvalidosException, KeyNullException {

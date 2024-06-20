@@ -61,6 +61,10 @@ public class Main {
     }
 
     private static void oTop10(Reports report) {
+        Runtime runtime = Runtime.getRuntime();
+        runtime.gc();
+        long memoryBefore = runtime.totalMemory() - runtime.freeMemory();
+
         Scanner scanner = new Scanner(System.in);
         System.out.print("Ingrese el país (código ISO): ");
         String pais = scanner.nextLine();
@@ -87,9 +91,18 @@ public class Main {
         } catch (NullPointerException e) {
             System.out.println("\nNo se han encontrado resultados con los datos ingresados");
         }
+
+        long memoryAfter = runtime.totalMemory() - runtime.freeMemory();
+        long memoryUsed = memoryAfter - memoryBefore;
+
+        System.out.println("Memoria utilizada para operación: " + memoryUsed + " bytes");
     }
 
     private static void oTop5(Reports report) {
+        Runtime runtime = Runtime.getRuntime();
+        runtime.gc();
+        long memoryBefore = runtime.totalMemory() - runtime.freeMemory();
+
         Scanner scanner = new Scanner(System.in);
         System.out.print("Ingrese la fecha (YYYY-MM-DD): ");
         String fecha = scanner.nextLine();
@@ -102,6 +115,7 @@ public class Main {
                 for (String song : top5) {
                     System.out.println(song);
                 }
+
             }
 
             long endTime = System.currentTimeMillis();
@@ -115,9 +129,18 @@ public class Main {
         } catch (NullPointerException e) {
             System.out.println("\nNo se han encontrado resultados con los datos ingresados");
         }
+
+        long memoryAfter = runtime.totalMemory() - runtime.freeMemory();
+        long memoryUsed = memoryAfter - memoryBefore;
+
+        System.out.println("Memoria utilizada para operación: " + memoryUsed + " bytes");
     }
 
     private static void oTop7(Reports report) {
+        Runtime runtime = Runtime.getRuntime();
+        runtime.gc();
+        long memoryBefore = runtime.totalMemory() - runtime.freeMemory();
+
         Scanner scanner = new Scanner(System.in);
         System.out.print("Ingrese la fecha de inicio (YYYY-MM-DD): ");
         String fechaI = scanner.nextLine();
@@ -144,9 +167,18 @@ public class Main {
         } catch (DatosInvalidosException | KeyNullException e) {
             System.err.println("Error: " + e.getMessage() + "\n");
         }
+
+        long memoryAfter = runtime.totalMemory() - runtime.freeMemory();
+        long memoryUsed = memoryAfter - memoryBefore;
+
+        System.out.println("Memoria utilizada para operación: " + memoryUsed + " bytes");
     }
 
     private static void oCantArtista(Reports report) {
+        Runtime runtime = Runtime.getRuntime();
+        runtime.gc();
+        long memoryBefore = runtime.totalMemory() - runtime.freeMemory();
+
         Scanner scanner = new Scanner(System.in);
         System.out.print("Ingrese el nombre del artista: ");
         String artista = scanner.nextLine();
@@ -169,9 +201,18 @@ public class Main {
         } catch (DatosInvalidosException | KeyNullException e) {
             System.err.println("Error: " + e.getMessage() + "\n");
         }
+
+        long memoryAfter = runtime.totalMemory() - runtime.freeMemory();
+        long memoryUsed = memoryAfter - memoryBefore;
+
+        System.out.println("Memoria utilizada para operación: " + memoryUsed + " bytes");
     }
 
     private static void oCantCanciones(Reports report) {
+        Runtime runtime = Runtime.getRuntime();
+        runtime.gc();
+        long memoryBefore = runtime.totalMemory() - runtime.freeMemory();
+
         Scanner scanner = new Scanner(System.in);
         System.out.print("Ingrese el rango de tempo mínimo (se redondea a 3 cifras decimales): ");
         BigDecimal minTempo = scanner.nextBigDecimal().setScale(3, RoundingMode.HALF_UP);
@@ -199,5 +240,23 @@ public class Main {
         } catch (DatosInvalidosException | KeyNullException e) {
             System.err.println("Error: " + e.getMessage() + "\n");
         }
+
+        long memoryAfter = runtime.totalMemory() - runtime.freeMemory();
+        long memoryUsed = memoryAfter - memoryBefore;
+
+        System.out.println("Memoria utilizada para operación: " + memoryUsed + " bytes");
+    }
+
+    public void MamoriaUsada(int k){
+
+        Runtime runtime = Runtime.getRuntime();
+        runtime.gc();
+        long memoryBefore = runtime.totalMemory() - runtime.freeMemory();
+
+        // Llamar al método que queremos medir
+        long memoryAfter = runtime.totalMemory() - runtime.freeMemory();
+        long memoryUsed = memoryAfter - memoryBefore;
+
+        System.out.println("Memoria utilizada: " + memoryUsed + " bytes");
     }
 }
