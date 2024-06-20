@@ -96,7 +96,7 @@ public class Main {
         long memoryAfter = runtime.totalMemory() - runtime.freeMemory();
         long memoryUsed = memoryAfter - memoryBefore;
 
-        System.out.println("Memoria utilizada para operación: " + memoryUsed + " bytes");
+        System.out.println("\nMemoria utilizada para operación: " + memoryUsed + " bytes");
     }
 
     private static void oTop5(Reports report) {
@@ -134,7 +134,7 @@ public class Main {
         long memoryAfter = runtime.totalMemory() - runtime.freeMemory();
         long memoryUsed = memoryAfter - memoryBefore;
 
-        System.out.println("Memoria utilizada para operación: " + memoryUsed + " bytes");
+        System.out.println("\nMemoria utilizada para operación: " + memoryUsed + " bytes");
     }
 
     private static void oTop7(Reports report) {
@@ -172,7 +172,7 @@ public class Main {
         long memoryAfter = runtime.totalMemory() - runtime.freeMemory();
         long memoryUsed = memoryAfter - memoryBefore;
 
-        System.out.println("Memoria utilizada para operación: " + memoryUsed + " bytes");
+        System.out.println("\nMemoria utilizada para operación: " + memoryUsed + " bytes");
     }
 
     private static void oCantArtista(Reports report) {
@@ -206,7 +206,7 @@ public class Main {
         long memoryAfter = runtime.totalMemory() - runtime.freeMemory();
         long memoryUsed = memoryAfter - memoryBefore;
 
-        System.out.println("Memoria utilizada para operación: " + memoryUsed + " bytes");
+        System.out.println("\nMemoria utilizada para operación: " + memoryUsed + " bytes");
     }
 
     private static void oCantCanciones(Reports report) {
@@ -248,6 +248,6 @@ public class Main {
         long memoryAfter = runtime.totalMemory() - runtime.freeMemory();
         long memoryUsed = memoryAfter - memoryBefore;
 
-        System.out.println("Memoria utilizada para operación: " + memoryUsed + " bytes");
+        System.out.println("\nMemoria utilizada para operación: " + memoryUsed + " bytes");
     }
 }
