@@ -114,7 +114,7 @@ public class Reports implements ReportsInterface {
         long endTime = System.currentTimeMillis();
         long totalTime = endTime - startTime;
 
-        System.out.println("Tiempo total de ejecución (en milisegundos) para carga de datos: " + totalTime + "\n");
+        System.out.println("\nTiempo total de ejecución (en milisegundos) para carga de datos: " + totalTime + "\n");
     }
 
     public ArrayList<String> top10(String d, String p) throws DatosInvalidosException, KeyNullException {
@@ -125,38 +125,33 @@ public class Reports implements ReportsInterface {
         MyHeap<Integer> heap = new MyHeapImpl<>(true);
         MyHash<Integer, String> hash = new MyHashImpl<>();
 
-        try {
-            MyList<String> listaCanciones = this.hashCancionesFechaPais.get(d).get(p);
+        MyList<String> listaCanciones = this.hashCancionesFechaPais.get(d).get(p);
 
-            for (Node<String> nodeTemp = listaCanciones.getFirst(); nodeTemp != null; nodeTemp = nodeTemp.getNext()) {
-                String[] valores = nodeTemp.getValue().split("\",\"");
+        for (Node<String> nodeTemp = listaCanciones.getFirst(); nodeTemp != null; nodeTemp = nodeTemp.getNext()) {
+            String[] valores = nodeTemp.getValue().split("\",\"");
 
-                for (int i = 0; i < valores.length; i++) {
-                    valores[i] = valores[i].replace("\"", "");
-                }
-
-                int k = Integer.parseInt(valores[3]);
-                hash.put(k, valores[1]);
-                heap.insert(k);
+            for (int i = 0; i < valores.length; i++) {
+                valores[i] = valores[i].replace("\"", "");
             }
 
-
-            ArrayList<String> songs = new ArrayList<>();
-            int count = 0;
-            while (count < 10 && heap.size() > 0) {
-                int k = heap.delete();
-                String songData = hash.get(k);
-                if (songData != null) {
-                    songs.add(songData);
-                    count++;
-                }
-            }
-
-            return songs;
-        } catch (NullPointerException e) {
-            System.out.println("No se han encontrado resultados con los datos ingresados");
-            return null;
+            int k = Integer.parseInt(valores[3]);
+            hash.put(k, valores[1]);
+            heap.insert(k);
         }
+
+
+        ArrayList<String> songs = new ArrayList<>();
+        int count = 0;
+        while (count < 10 && heap.size() > 0) {
+            int k = heap.delete();
+            String songData = hash.get(k);
+            if (songData != null) {
+                songs.add(songData);
+                count++;
+            }
+        }
+
+        return songs;
     }
 
 
@@ -170,38 +165,39 @@ public class Reports implements ReportsInterface {
         MySearchBinaryTree<String, String> bst = new MySearchBinaryTreeImpl<>();
 
         MyList<String> listaCanciones = this.hashCancionesFecha.get(d);
-        for (Node<String> nodeTemp = listaCanciones.getFirst(); nodeTemp != null; nodeTemp = nodeTemp.getNext()) {
-            String x = nodeTemp.getValue();
-            String[] valores = x.split("\",\"");
 
-            for (int i = 0; i < valores.length; i++) {
-                valores[i] = valores[i].replace("\"", "");
+            for (Node<String> nodeTemp = listaCanciones.getFirst(); nodeTemp != null; nodeTemp = nodeTemp.getNext()) {
+                String x = nodeTemp.getValue();
+                String[] valores = x.split("\",\"");
+
+                for (int i = 0; i < valores.length; i++) {
+                    valores[i] = valores[i].replace("\"", "");
+                }
+
+                bst.add(valores[0], valores[1]);
             }
 
-            bst.add(valores[0], valores[1]);
-        }
-
-        MyList<TreeNode<String, String>> listKeys = bst.inOrder();
-        for (Node<TreeNode<String, String>> temp = listKeys.getFirst(); temp != listKeys.getLast(); temp = temp.getNext()) {
-            int c = temp.getValue().getCount();
-            String v = temp.getValue().getValue();
-            hash.put(c, v);
-            heap.insert(c);
-        }
-
-        ArrayList<String> songs = new ArrayList<>();
-        int count = 0;
-        while (count < 5 && heap.size() > 0) {
-            int c = heap.delete();
-            String songData = hash.get(c);
-            if (songData != null) {
-                songs.add(songData);
-                count++;
+            MyList<TreeNode<String, String>> listKeys = bst.inOrder();
+            for (Node<TreeNode<String, String>> temp = listKeys.getFirst(); temp != listKeys.getLast(); temp = temp.getNext()) {
+                int c = temp.getValue().getCount();
+                String v = temp.getValue().getValue();
+                hash.put(c, v);
+                heap.insert(c);
             }
-            hash.remove(c);
-        }
 
-        return songs;
+            ArrayList<String> songs = new ArrayList<>();
+            int count = 0;
+            while (count < 5 && heap.size() > 0) {
+                int c = heap.delete();
+                String songData = hash.get(c);
+                if (songData != null) {
+                    songs.add(songData);
+                    count++;
+                }
+                hash.remove(c);
+            }
+
+            return songs;
     }
 
 
@@ -290,9 +286,9 @@ public class Reports implements ReportsInterface {
             }
 
             return count;
+
         } catch (NullPointerException e) {
-            System.out.println("No se han encontrado resultados con los datos ingresados");
-            return -1;
+            return 0;
         }
     }
 

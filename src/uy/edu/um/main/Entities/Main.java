@@ -16,7 +16,7 @@ public class Main {
         int opcion;
 
         do {
-            System.out.println("Menu:");
+            System.out.println("\nMenu:");
             System.out.println("1. Top 10 canciones en un país y un día dado.");
             System.out.println("2. Top 5 canciones que aparecen en más top 50 en un día dado.");
             System.out.println("3. Top 7 artistas en un rango de fechas");
@@ -77,14 +77,15 @@ public class Main {
                 }
             }
 
-            System.out.println();
             long endTime = System.currentTimeMillis();
             long totalTime = endTime - startTime;
 
-            System.out.println("Tiempo total de ejecución en milisegundos op1: " + totalTime + "\n");
+            System.out.println("\nTiempo total de ejecución en milisegundos op1: " + totalTime + "\n");
 
         } catch (DatosInvalidosException | KeyNullException e) {
-            System.err.println("Error: " + e.getMessage());
+            System.err.println("Error: " + e.getMessage() + "\n");
+        } catch (NullPointerException e) {
+            System.out.println("\nNo se han encontrado resultados con los datos ingresados");
         }
     }
 
@@ -110,7 +111,9 @@ public class Main {
 
 
         } catch (DatosInvalidosException | KeyNullException e) {
-            System.err.println("Error: " + e.getMessage());
+            System.err.println("Error: " + e.getMessage() + "\n");
+        } catch (NullPointerException e) {
+            System.out.println("\nNo se han encontrado resultados con los datos ingresados");
         }
     }
 
@@ -125,19 +128,21 @@ public class Main {
         try {
             ArrayList<String> top7Artists = report.top7(fechaI, fechaF);
 
-            System.out.println("Top 7 artistas entre " + fechaI + " y " + fechaF + ":");
-            for (String artist : top7Artists) {
-                System.out.println(artist);
+            if (!top7Artists.isEmpty()) {
+                System.out.println("\nTop 7 artistas entre " + fechaI + " y " + fechaF + ":");
+                for (String artist : top7Artists) {
+                    System.out.println(artist);
+                }
+            }else{
+                System.out.println("\nNo se han encontrado resultados con los datos ingresados");
             }
+                long endTime = System.currentTimeMillis();
+                long totalTime = endTime - startTime;
 
-            long endTime = System.currentTimeMillis();
-            long totalTime = endTime - startTime;
-
-            System.out.println("\nTiempo total de ejecución en milisegundos op3: " + totalTime + "\n");
-
+                System.out.println("\nTiempo total de ejecución en milisegundos op3: " + totalTime + "\n");
 
         } catch (DatosInvalidosException | KeyNullException e) {
-            System.err.println("Error: " + e.getMessage());
+            System.err.println("Error: " + e.getMessage() + "\n");
         }
     }
 
@@ -154,10 +159,7 @@ public class Main {
         long startTime = System.currentTimeMillis();
         try {
             int count = report.cantArtista(artista, fecha, pais);
-            if (count != -1) {
-                System.out.println("\nEl artista " + artista + " aparece " + count + " veces en el top 50 del país " + pais + " el " + fecha + ".");
-
-            }
+            System.out.println("\nEl artista " + artista + " aparece " + count + " veces en el top 50 del país " + pais + " el " + fecha + ".");
 
             long endTime = System.currentTimeMillis();
             long totalTime = endTime - startTime;
@@ -165,7 +167,7 @@ public class Main {
             System.out.println("\nTiempo total de ejecución en milisegundos op4: " + totalTime + "\n");
 
         } catch (DatosInvalidosException | KeyNullException e) {
-            System.err.println("Error: " + e.getMessage());
+            System.err.println("Error: " + e.getMessage() + "\n");
         }
     }
 
@@ -195,7 +197,7 @@ public class Main {
 
 
         } catch (DatosInvalidosException | KeyNullException e) {
-            System.err.println("Error: " + e.getMessage());
+            System.err.println("Error: " + e.getMessage() + "\n");
         }
     }
 }
