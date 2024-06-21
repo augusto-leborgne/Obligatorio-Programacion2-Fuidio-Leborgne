@@ -185,7 +185,7 @@ public class Main {
         String artista = scanner.nextLine();
         System.out.print("Ingrese la fecha (YYYY-MM-DD): ");
         String fecha = scanner.nextLine();
-        System.out.print("Ingrese el pais: ");
+        System.out.print("Ingrese el pais (código ISO): ");
         String pais = scanner.nextLine();
 
 
