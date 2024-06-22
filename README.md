@@ -27,8 +27,8 @@
 6. **CantCanciones:**
     1. **Proceso de carga:** Para cada día en el rango de fechas dado, iteramos cada 0.001 el tempo en el rango dado y con fecha y tempo usamos hashCancionesFechaTempo para obtener la lista de canciones correspondientes. Si la lista de canciones no es null, agregamos el _spotify_id_ a un árbol binario de búsqueda y al finalizar devolvemos el tamaño de la lista inOrder del árbol.
     2. **Decisiones importantes:**
-        6. Decidimos usar un bst para contar canciones sin repetir.
-        7. Decidimos usar BigDecimal ya que, en la iteración de tempo, la cuenta es más precisa y permite setear una escala exacta de 3 cifras decimales para no tener problemas al buscar en el hash.
+        1. Decidimos usar un bst para contar canciones sin repetir.
+        2. Decidimos usar BigDecimal ya que, en la iteración de tempo, la cuenta es más precisa y permite setear una escala exacta de 3 cifras decimales para no tener problemas al buscar en el hash.
 
 
 ## Diagrama UML
